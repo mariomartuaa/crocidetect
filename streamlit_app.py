@@ -7,7 +7,7 @@ if 'start_app' not in st.session_state:
 
 if not st.session_state.start_app:
     try:
-        with open("/homepage.py", "r") as f:
+        with open("pages/homepage.py", "r") as f:
             exec(f.read())
     except FileNotFoundError:
         st.error("Error: homepage.py not found.")
