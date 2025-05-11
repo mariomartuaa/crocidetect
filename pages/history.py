@@ -22,7 +22,7 @@ st.markdown("""
 
 [data-testid="stAppViewBlockContainer"] {
     background: linear-gradient(45deg, #d7eac2 25%, #a9d7a9 50%, #f0e58a 75%, #e3d26f 100%);
-    animation: backgroundGradientShift 20s ease infinite;
+    animation: backgroundGradientShift 10s ease infinite;
     background-size: 300% 300%;
     background-attachment: fixed;
 }
