@@ -53,7 +53,7 @@ st.markdown("""
 .banner {
     top: -2rem;
     left: 0;
-    right: -100px;
+    right: 0;
     height: 100vh;
     display: flex;
     flex-direction: column;
