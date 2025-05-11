@@ -39,7 +39,7 @@ else:
     )
     
     information = st.Page(
-        "pages/information.py",
+        "pages/Information.py",
         title="Mengenai Crocidolomia Pavonana"
     )
     
