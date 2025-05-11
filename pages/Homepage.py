@@ -62,6 +62,7 @@ st.markdown("""
     text-align: center;
     position: absolute;
     padding-bottom: 10vh;
+    z-index: 9998;
 }
 .banner h1 {
     font-size: clamp(1.5rem, 5vw, 3rem);
@@ -162,7 +163,7 @@ st.markdown("""
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease;
     text-align: center;
-    z-index: 101;
+    z-index: 9999;
 }
 
 [data-testid="baseButton-secondary"]:hover {
