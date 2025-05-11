@@ -9,7 +9,7 @@ st.markdown("""
         header {visibility: hidden;}
         .main .block-container {
             padding: 0rem;
-            overflow:hidden;
+
         }
 
 [data-testid="baseButton-headerNoPadding"] {
