@@ -242,31 +242,31 @@ with margin_col1:
 
 with margin_col2:
     st.header("Klasifikasi Tahapan Instar Crocidolomia Pavonana", divider="green")
-    st.subheader("Contoh Gambar Instar")
-    instar_data = [
-        {
-            "title": "Instar 1",
-            "img": "assets/instar1.jpg",
-        },
-        {
-            "title": "Instar 2",
-            "img": "assets/instar2.jpg",
-        },
-        {
-            "title": "Instar 3",
-            "img": "assets/instar3.jpg",
-        },
-        {
-            "title": "Instar 4",
-            "img": "assets/instar4.jpg",
-        }
-    ]
+    # st.subheader("Contoh Gambar Instar")
+    # instar_data = [
+    #     {
+    #         "title": "Instar 1",
+    #         "img": "assets/instar1.jpg",
+    #     },
+    #     {
+    #         "title": "Instar 2",
+    #         "img": "assets/instar2.jpg",
+    #     },
+    #     {
+    #         "title": "Instar 3",
+    #         "img": "assets/instar3.jpg",
+    #     },
+    #     {
+    #         "title": "Instar 4",
+    #         "img": "assets/instar4.jpg",
+    #     }
+    # ]
 
-    cols = st.columns(4)
-    for i in range(4):
-        with cols[i]:
-            st.markdown(f'<h1 style="text-align: center; font-size: 20px; color: #2e5339;">{instar_data[i]["title"]}</h1>', unsafe_allow_html=True)
-            st.image(instar_data[i]["img"], use_column_width=True)
+    # cols = st.columns(4)
+    # for i in range(4):
+    #     with cols[i]:
+    #         st.markdown(f'<h1 style="text-align: center; font-size: 20px; color: #2e5339;">{instar_data[i]["title"]}</h1>', unsafe_allow_html=True)
+    #         st.image(instar_data[i]["img"], use_column_width=True)
     uploaded_file = st.file_uploader(label="Upload gambar", type=['jpg', 'jpeg', 'png'])
     if uploaded_file:
         image = Image.open(uploaded_file)
