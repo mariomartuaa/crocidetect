@@ -7,10 +7,10 @@ if 'start_app' not in st.session_state:
 
 if not st.session_state.start_app:
     try:
-        with open("pages/homepage.py", "r") as f:
+        with open("pages/Homepage.py", "r") as f:
             exec(f.read())
     except FileNotFoundError:
-        st.error("Error: homepage.py not found.")
+        st.error("Error: Homepage.py not found.")
 else:
     st.markdown("""
         <style>
