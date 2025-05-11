@@ -9,10 +9,12 @@ st.markdown("""
         header {visibility: hidden;}
         .main .block-container {
             padding: 0rem;
-            
+            overflow:hidden;
         }
 
-        
+[data-testid="baseButton-headerNoPadding"] {
+    background: #fef9c3; 
+}        
 
 [data-testid="stHeader"] {
     background-color: #ffff;
