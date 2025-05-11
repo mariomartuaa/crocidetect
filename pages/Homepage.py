@@ -12,7 +12,6 @@ st.markdown("""
             
         }
 
-<style>
 [data-testid="baseButton-headerNoPadding"] {
     background: #fef9c3; 
 }        
