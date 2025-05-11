@@ -172,8 +172,11 @@ st.markdown("""
 """, unsafe_allow_html=True)
 @st.cache_resource
 def load_inception_model():
-    model = tf.keras.models.load_model("C:/Users/Mario/Downloads/Skripsi/Streamlit/pages/Model/InceptionV32_model.keras")
-    return model
+    model_path = 'InceptionV31_model.keras'
+    if not os.path.exists(model_path):
+        url = 'https://drive.google.com/uc?id=1brLqWkd9AQbhvSGkk7rM03V5I_NfebUj'
+        gdown.download(url, model_path, quiet=False)
+    return tf.keras.models.load_model(model_path)
 
 inception_model = load_inception_model()
 
