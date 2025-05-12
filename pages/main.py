@@ -333,28 +333,40 @@ with tab1:
         st.write("")
 
 with tab2:
-    st.subheader("Contoh Gambar Instar")
-    instar_data = [
-        {
-            "title": "Instar 1",
-            "img": "assets/instar1.jpg",
-        },
-        {
-            "title": "Instar 2",
-            "img": "assets/instar2.jpg",
-        },
-        {
-            "title": "Instar 3",
-            "img": "assets/instar3.jpg",
-        },
-        {
-            "title": "Instar 4",
-            "img": "assets/instar4.jpg",
-        }
-    ]
+    margin_col1, margin_col2, margin_col3 = st.columns([1, 3, 1])
+    with margin_col1:
+        st.write("")
+    with margin_col2:
+        st.subheader("Contoh Gambar Instar")
+        instar_data = [
+            {
+                "title": "Instar 1",
+                "img": "assets/instar1.jpg",
+            },
+            {
+                "title": "Instar 2",
+                "img": "assets/instar2.jpg",
+            },
+            {
+                "title": "Instar 3",
+                "img": "assets/instar3.jpg",
+            },
+            {
+                "title": "Instar 4",
+                "img": "assets/instar4.jpg",
+            }
+        ]
 
-    cols = st.columns(4)
-    for i in range(4):
-        with cols[i]:
-            st.markdown(f'<h1 style="text-align: center; font-size: 20px; color: #2e5339;">{instar_data[i]["title"]}</h1>', unsafe_allow_html=True)
-            st.image(instar_data[i]["img"], use_column_width=True)
+        cols = st.columns(2)
+        for i in range(0,2):
+            with cols[i]:
+                st.markdown(f'<h1 style="text-align: center; font-size: 20px; color: #2e5339;">{instar_data[i]["title"]}</h1>', unsafe_allow_html=True)
+                st.image(instar_data[i]["img"], use_column_width=True)
+        
+        cols = st.columns(2)
+        for i in range(2,4):
+            with cols[i-2]:
+                st.markdown(f'<h1 style="text-align: center; font-size: 20px; color: #2e5339;">{instar_data[i]["title"]}</h1>', unsafe_allow_html=True)
+                st.image(instar_data[i]["img"], use_column_width=True)
+    with margin_col3:
+        st.write("")
