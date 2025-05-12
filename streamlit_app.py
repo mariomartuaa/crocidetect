@@ -187,8 +187,6 @@ else:
     </style>
     """, unsafe_allow_html=True)
     
-    st.sidebar.write("Test")
-    
     app = st.Page(
         "pages/main.py",
         title="Aplikasi",
