@@ -236,124 +236,125 @@ def superimpose_heatmap(img, heatmap, alpha=0.4):
 
 
 # 📤 Upload gambar untuk prediksi
-margin_col1, margin_col2, margin_col3 = st.columns([1, 3, 1])
-with margin_col1:
-    st.write("")
+st.header("Klasifikasi Tahapan Instar Crocidolomia Pavonana", divider="green")
+tab1, tab2 = st.tabs(["Klasifikasi", "Contoh Gambar"])
+with tab1:
+    margin_col1, margin_col2, margin_col3 = st.columns([1, 3, 1])
+    with margin_col1:
+        st.write("")
 
-with margin_col2:
-    st.header("Klasifikasi Tahapan Instar Crocidolomia Pavonana", divider="green")
-    # st.subheader("Contoh Gambar Instar")
-    # instar_data = [
-    #     {
-    #         "title": "Instar 1",
-    #         "img": "assets/instar1.jpg",
-    #     },
-    #     {
-    #         "title": "Instar 2",
-    #         "img": "assets/instar2.jpg",
-    #     },
-    #     {
-    #         "title": "Instar 3",
-    #         "img": "assets/instar3.jpg",
-    #     },
-    #     {
-    #         "title": "Instar 4",
-    #         "img": "assets/instar4.jpg",
-    #     }
-    # ]
+    with margin_col2:
+        uploaded_file = st.file_uploader(label="Upload gambar", type=['jpg', 'jpeg', 'png'])
+        if uploaded_file:
+            image = Image.open(uploaded_file)
+            st.image(image, use_column_width=True)
 
-    # cols = st.columns(4)
-    # for i in range(4):
-    #     with cols[i]:
-    #         st.markdown(f'<h1 style="text-align: center; font-size: 20px; color: #2e5339;">{instar_data[i]["title"]}</h1>', unsafe_allow_html=True)
-    #         st.image(instar_data[i]["img"], use_column_width=True)
-    uploaded_file = st.file_uploader(label="Upload gambar", type=['jpg', 'jpeg', 'png'])
-    if uploaded_file:
-        image = Image.open(uploaded_file)
-        st.image(image, use_column_width=True)
+            if st.button("Klasifikasi Gambar"):
+                status_placeholder = st.empty()
+                status_placeholder.info("⏳ Memproses dan memprediksi gambar...")
 
-        if st.button("Klasifikasi Gambar"):
-            status_placeholder = st.empty()
-            status_placeholder.info("⏳ Memproses dan memprediksi gambar...")
+                # Mapping kelas
+                class_names = ['Instar 1', 'Instar 2', 'Instar 3', 'Instar 4']
 
-            # Mapping kelas
-            class_names = ['Instar 1', 'Instar 2', 'Instar 3', 'Instar 4']
+                # Prediksi InceptionV3
+                preprocessed_inception = preprocess_image_inception(image)
+                prediction_inception = inception_model.predict(preprocessed_inception)
+                predicted_class_inception = class_names[np.argmax(prediction_inception)]
+                confidence_inception = np.max(prediction_inception) * 100
 
-            # Prediksi InceptionV3
-            preprocessed_inception = preprocess_image_inception(image)
-            prediction_inception = inception_model.predict(preprocessed_inception)
-            predicted_class_inception = class_names[np.argmax(prediction_inception)]
-            confidence_inception = np.max(prediction_inception) * 100
+                status_placeholder.success("✅ Klasifikasi selesai!")
+                hasil_col1, hasil_col2 = st.columns(2)
+                with hasil_col1:
+                    st.markdown(f"""
+                        <div class="card">
+                            <strong>Model: </strong>InceptionV3<br>
+                            <strong>Prediksi: </strong>{predicted_class_inception}<br>
+                            <strong>Akurasi: </strong>{confidence_inception:.2f}%<br>
+                        </div>
+                                        """, unsafe_allow_html=True)
+                
+                with hasil_col2:
+                    # Data untuk visualisasi
+                    df_confidence = pd.DataFrame({
+                        'Tahap Instar': class_names,
+                        'Akurasi (%)': prediction_inception[0] * 100
+                    })
+                    st.dataframe(df_confidence.style.format({'Akurasi (%)': '{:.2f}'}))
+                        
+                gradcam_status_placeholder = st.empty()
+                gradcam_status_placeholder.info("⏳ Membuat Grad-CAM visualisasi...")
+                
+                # Grad-CAM InceptionV3
+                heatmap_inception = make_gradcam_heatmap(preprocessed_inception, inception_model, "mixed10")
+                superimposed_img_inception = superimpose_heatmap(image, heatmap_inception)
 
-            status_placeholder.success("✅ Klasifikasi selesai!")
-            hasil_col1, hasil_col2 = st.columns(2)
-            with hasil_col1:
-                st.markdown(f"""
-                    <div class="card">
-                        <strong>Model: </strong>InceptionV3<br>
-                        <strong>Prediksi: </strong>{predicted_class_inception}<br>
-                        <strong>Akurasi: </strong>{confidence_inception:.2f}%<br>
-                    </div>
-                                    """, unsafe_allow_html=True)
-            
-            with hasil_col2:
-                # Data untuk visualisasi
-                df_confidence = pd.DataFrame({
-                    'Tahap Instar': class_names,
-                    'Akurasi (%)': prediction_inception[0] * 100
+
+                # Grad-CAM InceptionV3
+                heatmap_inception = make_gradcam_heatmap(preprocessed_inception, inception_model, "mixed10")
+                superimposed_img_inception = superimpose_heatmap(image, heatmap_inception)
+
+                # Tampilkan Grad-CAM
+                st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Grad-CAM Visualisasi</h1>', unsafe_allow_html=True)
+                gradcam_col1, gradcam_col2, gradcam_col3 = st.columns(3)
+                
+                # Simpan ke session state (history)
+                if "history" not in st.session_state:
+                    st.session_state.history = []
+
+                # Konversi gambar asli dan hasil gradcam jadi bentuk yang bisa disimpan
+                from io import BytesIO
+
+                def pil_to_bytes(img):
+                    buf = BytesIO()
+                    img.save(buf, format="PNG")
+                    return buf.getvalue()
+
+                from PIL import Image
+
+                # Konversi hasil superimposed jadi PIL Image dulu
+                result_pil = Image.fromarray(superimposed_img_inception)
+
+                st.session_state.history.append({
+                    "original": image.copy(),
+                    "heatmap": Image.fromarray(superimposed_img_inception),
+                    "prediction": predicted_class_inception,
+                    "confidence": confidence_inception,
+                    "df_confidence": pd.DataFrame({
+                        'Tahap Instar': class_names,
+                        'Akurasi (%)': prediction_inception[0] * 100
+                    })
                 })
-                st.dataframe(df_confidence.style.format({'Akurasi (%)': '{:.2f}'}))
-                    
-            gradcam_status_placeholder = st.empty()
-            gradcam_status_placeholder.info("⏳ Membuat Grad-CAM visualisasi...")
-            
-            # Grad-CAM InceptionV3
-            heatmap_inception = make_gradcam_heatmap(preprocessed_inception, inception_model, "mixed10")
-            superimposed_img_inception = superimpose_heatmap(image, heatmap_inception)
 
+                
+                st.image(superimposed_img_inception, caption="Grad-CAM InceptionV3", use_column_width=True)
+                gradcam_status_placeholder.success("✅ Grad-CAM berhasil dibuat!")
 
-            # Grad-CAM InceptionV3
-            heatmap_inception = make_gradcam_heatmap(preprocessed_inception, inception_model, "mixed10")
-            superimposed_img_inception = superimpose_heatmap(image, heatmap_inception)
+    with margin_col3:
+        st.write("")
 
-            # Tampilkan Grad-CAM
-            st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Grad-CAM Visualisasi</h1>', unsafe_allow_html=True)
-            gradcam_col1, gradcam_col2, gradcam_col3 = st.columns(3)
-            
-            # Simpan ke session state (history)
-            if "history" not in st.session_state:
-                st.session_state.history = []
+with tab2:
+    st.subheader("Contoh Gambar Instar")
+    instar_data = [
+        {
+            "title": "Instar 1",
+            "img": "assets/instar1.jpg",
+        },
+        {
+            "title": "Instar 2",
+            "img": "assets/instar2.jpg",
+        },
+        {
+            "title": "Instar 3",
+            "img": "assets/instar3.jpg",
+        },
+        {
+            "title": "Instar 4",
+            "img": "assets/instar4.jpg",
+        }
+    ]
 
-            # Konversi gambar asli dan hasil gradcam jadi bentuk yang bisa disimpan
-            from io import BytesIO
-
-            def pil_to_bytes(img):
-                buf = BytesIO()
-                img.save(buf, format="PNG")
-                return buf.getvalue()
-
-            from PIL import Image
-
-            # Konversi hasil superimposed jadi PIL Image dulu
-            result_pil = Image.fromarray(superimposed_img_inception)
-
-            st.session_state.history.append({
-                "original": image.copy(),
-                "heatmap": Image.fromarray(superimposed_img_inception),
-                "prediction": predicted_class_inception,
-                "confidence": confidence_inception,
-                "df_confidence": pd.DataFrame({
-                    'Tahap Instar': class_names,
-                    'Akurasi (%)': prediction_inception[0] * 100
-                })
-            })
-
-            
-            st.image(superimposed_img_inception, caption="Grad-CAM InceptionV3", use_column_width=True)
-            gradcam_status_placeholder.success("✅ Grad-CAM berhasil dibuat!")
-
-with margin_col3:
-    st.write("")
-
-    
-
+    cols = st.columns(4)
+    for i in range(4):
+        with cols[i]:
+            st.markdown(f'<h1 style="text-align: center; font-size: 20px; color: #2e5339;">{instar_data[i]["title"]}</h1>', unsafe_allow_html=True)
+            st.image(instar_data[i]["img"], use_column_width=True)
