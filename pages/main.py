@@ -329,7 +329,6 @@ with margin_col2:
                 st.image(superimposed_img_inception, caption="Grad-CAM InceptionV3", use_column_width=True)
                 gradcam_status_placeholder.success("✅ Grad-CAM berhasil dibuat!")
     with tab2:
-        st.subheader("Contoh Gambar Instar")
         instar_data = [
             {
                 "title": "Instar 1",
