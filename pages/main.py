@@ -11,6 +11,8 @@ import gdown
 import cv2
 from io import BytesIO
 
+loading_model = st.empty()
+loading_model.info("⏳ Loading Model...")
 @st.cache_resource
 def load_inception_model():
     model_path = 'InceptionV31_model.keras'
@@ -20,6 +22,8 @@ def load_inception_model():
     return tf.keras.models.load_model(model_path)
 
 inception_model = load_inception_model()
+loading_model.success("✅ Berhasil Mengload Model")
+loading_model.empty()
 
 # Preprocessing function
 def preprocess_image_inception(image: Image.Image):
