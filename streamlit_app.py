@@ -212,10 +212,7 @@ else:
         icon="❓"
     )
 
-    pg = st.navigation({
-        "Halaman Utama":[app, history],
-        "Halaman Informasi:" :[information, guide]
-    })
+    pg = st.navigation([app, history, information, guide])
 
     st.logo("assets/logo.png", icon_image="assets/logo.png")
 
