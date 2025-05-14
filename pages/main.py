@@ -81,6 +81,12 @@ def superimpose_heatmap(img, heatmap, alpha=0.4):
 
 
 # 📤 Upload gambar untuk prediksi
+st.markdown("""
+<div class="hero-section">
+    <img src="https://i.imgur.com/6FYuwbg.png" class="logo-img2">
+    <h1 class="hero-title">CROCIDETECT</h1>
+</div>
+""", unsafe_allow_html=True)
 margin_col1, margin_col2, margin_col3 = st.columns([1, 3, 1])
 with margin_col1:
     st.write("")
