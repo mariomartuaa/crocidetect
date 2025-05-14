@@ -183,6 +183,38 @@ else:
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
         border-color: #a7f6db;
     }
+    
+    .hero-section {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .logo-img2 {
+        height: clamp(80px, 10vw, 150px);
+        width: clamp(80px, 10vw, 150px);
+    }
+
+    .hero-title {
+        font-size: clamp(32px, 6vw, 100px);
+        margin: 20px 0 0 0;
+        color: rgba(225, 225, 225, 0.01);
+        background-image: url("https://img.antarafoto.com/cache/1200x775/2023/09/15/panen-sawi-hijau-di-jombang-1864u-dom.jpg");
+        background-repeat: repeat;
+        -webkit-background-clip: text;
+        animation: animateText 15s ease-in-out infinite;
+        text-transform: uppercase;
+        font-weight: 900;
+    }
+
+    @keyframes animateText {
+        0%, 100% { background-position: left top; }
+        25% { background-position: right bottom; }
+        50% { background-position: left bottom; }
+        75% { background-position: right top; }
+    }
 
     </style>
     """, unsafe_allow_html=True)
