@@ -92,7 +92,6 @@ with margin_col1:
     st.write("")
 
 with margin_col2:
-    st.header("Klasifikasi Tahapan Instar Crocidolomia Pavonana", divider="green")
     tab1, tab2 = st.tabs(["Klasifikasi", "Contoh Gambar"])
     with tab1:
         uploaded_file = st.file_uploader(label="Upload gambar", type=['jpg', 'jpeg', 'png'])
