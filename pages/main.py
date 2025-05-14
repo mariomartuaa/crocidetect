@@ -11,8 +11,6 @@ import gdown
 import cv2
 from io import BytesIO
 
-loading_model = st.empty()
-loading_model.info("⏳ Loading Model...")
 @st.cache_resource
 def load_inception_model():
     model_path = 'InceptionV31_model.keras'
@@ -20,7 +18,9 @@ def load_inception_model():
         url = 'https://drive.google.com/uc?id=1brLqWkd9AQbhvSGkk7rM03V5I_NfebUj'
         gdown.download(url, model_path, quiet=False)
     return tf.keras.models.load_model(model_path)
-
+    
+loading_model = st.empty()
+loading_model.info("⏳ Loading Model...")
 inception_model = load_inception_model()
 loading_model.success("✅ Berhasil Mengload Model")
 loading_model.empty()
