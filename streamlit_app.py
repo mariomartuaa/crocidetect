@@ -201,7 +201,7 @@ else:
         font-size: clamp(32px, 6vw, 100px);
         margin: 20px 0 0 0;
         color: rgba(225, 225, 225, 0.01);
-        background-image: url("https://img.antarafoto.com/cache/1200x775/2023/09/15/panen-sawi-hijau-di-jombang-1864u-dom.jpg");
+        background-image: url("https://www.pollybell.co.uk/wp-content/uploads/2023/06/IMG_3543-sml.jpg");
         background-repeat: repeat;
         -webkit-background-clip: text;
         animation: animateText 15s ease-in-out infinite;
