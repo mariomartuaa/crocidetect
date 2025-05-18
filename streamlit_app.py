@@ -83,41 +83,6 @@ else:
     #     padding-top: 2rem;
     # }
 
-    .banner {
-        background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20230912/pngtree-the-whole-field-was-full-of-cabbages-image_13120953.png');
-        background-size: cover;
-        background-position: center;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-    .banner h1 {
-        font-size: 3rem;
-        color: #ffffff;
-        margin: 10px;
-        text-shadow: 1px 1px 3px #000;
-    }
-    .banner h2 {
-        font-size: 1.5rem;
-        color: #f0f0f0;
-        margin: 0 20px;
-        text-shadow: 1px 1px 2px #000;
-    }
-    .banner button {
-        height: 45px;
-        padding: 0 40px;
-        border-radius: 100px;
-        border: 1px solid #ffffff;
-        background-color: rgba(255, 255, 255, 0.8);
-        color: #1b4332;
-        font-size: 16px;
-        cursor: pointer;
-        margin-top: 20px;
-    }
-
     .streamlit-expanderHeader {
         color: red;
     }
