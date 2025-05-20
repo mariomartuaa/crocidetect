@@ -37,7 +37,7 @@ def preprocess_image_inception(image: Image.Image):
 
 def make_gradcam_heatmap(img_array, model, last_conv_layer_name, pred_index=None):
     grad_model = tf.keras.models.Model(
-        model.input, 
+        model.inputs, 
         [model.get_layer(last_conv_layer_name).output, model.output]
     )
 
