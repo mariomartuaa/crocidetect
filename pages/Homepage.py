@@ -262,9 +262,7 @@ with col2:
         st.markdown(
             """
             <div class="card">
-                <ul>
-                    <li>Menampilkan area penting pada gambar yang memengaruhi hasil keputusan prediksi model.</li>
-                </ul>
+                <Menampilkan area penting pada gambar yang memengaruhi hasil keputusan prediksi model.</li>
             </div>""",
             unsafe_allow_html=True
         )
