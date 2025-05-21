@@ -1,24 +1,8 @@
 import streamlit as st
 
-# === GAMBAR CROCIDILOMIA DEWASA ===
-
-# col1, col2, col3 = st.columns(3)
-
-# with col1:
-#     st.write(' ')
-
-# with col2:
-#     st.image("assets/crocidolomia_adult.jpg")
-
-# with col3:
-#     st.write(' ')
-    
-
 st.markdown('<div style="display: flex; justify-content: center;"><img src="https://i.imgur.com/9zNBhxV.png" alt="Alternative text" style="height: 40%;"></div>', unsafe_allow_html=True)
 st.markdown(f'<h1 style="text-align: center; font-size: 40px; color: #2e5339;">Crocidolomia Pavonana</h1>', unsafe_allow_html=True)
 
-# === PENJELASAN ILMIAH ===
-# === INFORMASI PENTING (Menyamping 2 kolom seperti fitur utama) ===
 col1, col2 = st.columns(2)
 
 with col1:
@@ -46,7 +30,7 @@ with col2:
                 <li>Menyerang daun muda dan titik tumbuh tanaman.</li>
                 <li>Kerusakan hingga 100%pada musim kemarau.</li>
                 <li>Larva memakan daun hingga tersisa tulangnya saja.</li>
-                <li>Mengakibatkan <strong>gagal panen total jika tidak dikendalikan.</li>
+                <li>Mengakibatkan gagal panen total jika tidak dikendalikan.</li>
             </ul>
         </div>
         """,
@@ -75,28 +59,28 @@ with col4:
 
 st.markdown("""<hr style="background-color: black; margin-left:5rem; margin-right:5rem;">""",unsafe_allow_html=True)
 
-# === INSTAR SEBAGAI KARTU ===
+
 st.markdown(f'<h1 style="text-align: center; font-size: 40px; color: #2e5339;">Tahapan Instar Larva</h1>', unsafe_allow_html=True)
 instar_data = [
     {
         "title": "Instar 1",
         "img": "assets/instar1.jpg",
-        "desc": "Ukuran 1.84–2.51 mm. Warna hijau muda, kepala hitam. Tubuh halus dan lebih banyak diam."
+        "desc": "Berukuran 1.84–2.51 mm. Warna hijau muda, kepala hitam. Tubuh halus dan lebih banyak diam."
     },
     {
         "title": "Instar 2",
         "img": "assets/instar2.jpg",
-        "desc": "Ukuran 5.1–6.82 mm. Kepala coklat kemerahan. Sudah aktif makan dan merusak daun."
+        "desc": "Berukuran 5.1–6.82 mm. Kepala coklat kemerahan. Sudah aktif makan dan merusak daun."
     },
     {
         "title": "Instar 3",
         "img": "assets/instar3.jpg",
-        "desc": "Ukuran 11.97–15.85 mm. Menyebar, menyerang daun bagian dalam dan pucuk tanaman."
+        "desc": "Berukuran 11.97–15.85 mm. Menyebar, menyerang daun bagian dalam dan pucuk tanaman."
     },
     {
         "title": "Instar 4",
         "img": "assets/instar4.jpg",
-        "desc": "Ukuran 14.25–18.7 mm. Garis-garis tubuh lebih jelas. Kepala dan kaki kecoklatan."
+        "desc": "Berukuran 14.25–18.7 mm. Garis-garis tubuh lebih jelas. Kepala dan kaki kecoklatan."
     }
 ]
 
@@ -107,7 +91,6 @@ for i in range(4):
         st.image(instar_data[i]["img"], use_column_width=True)
         st.markdown(f'<div class="card">{instar_data[i]["desc"]}</div>', unsafe_allow_html=True)
 
-# === FOOTER ===
 st.markdown("""<hr style="background-color: black; margin-left:5rem; margin-right:5rem;">""",unsafe_allow_html=True)
 st.markdown("""
         <div style="padding-left: 5rem; padding-right: 5rem; padding-bottom: 5rem; font-size: clamp(0.9rem, 1.5vw, 1.2rem);">
