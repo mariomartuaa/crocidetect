@@ -244,7 +244,7 @@ with col1:
                     <li>Menggunakan Model Pretrained CNN InceptionV3.</li>
                     <li>Memprediksi tahapan instar (1 hingga 4) berdasarkan citra larva yang diunggah.</li>
                     <li>Menampilkan hasil prediksi berserta tingkat kepercayaan (confidence score) model.</li>
-                    <li>Membantu petani dan peneliti mengidentifikasi fase larva dengan cepat dan akurat.</li>
+                    <li>Membantu pengguna mengidentifikasi fase larva dengan cepat dan akurat.</li>
                 </ul>
             </div>""",
             unsafe_allow_html=True
