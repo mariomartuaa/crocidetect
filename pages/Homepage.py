@@ -243,7 +243,7 @@ with col1:
                 <ul>
                     <li>Menggunakan Model Pretrained CNN InceptionV3.</li>
                     <li>Memprediksi tahapan instar (1 hingga 4) berdasarkan citra larva yang diunggah.</li>
-                    <li>Menampilkan hasil prediksi berserta tingkat kepercayaan (confidence score) dari setiap model.</li>
+                    <li>Menampilkan hasil prediksi berserta tingkat kepercayaan (confidence score) model.</li>
                     <li>Membantu petani dan peneliti mengidentifikasi fase larva dengan cepat dan akurat.</li>
                 </ul>
             </div>""",
@@ -262,7 +262,7 @@ with col2:
         st.markdown(
             """
             <div class="card">
-                Menampilkan area penting pada gambar yang memengaruhi hasil keputusan prediksi model.
+                Menampilkan area penting pada gambar yang mempengaruhi hasil keputusan prediksi model.
             </div>""",
             unsafe_allow_html=True
         )
@@ -300,7 +300,7 @@ with col2:
                 <li>Menyerang daun muda dan titik tumbuh tanaman.</li>
                 <li>Kerusakan hingga 100%pada musim kemarau.</li>
                 <li>Larva memakan daun hingga tersisa tulangnya saja.</li>
-                <li>Mengakibatkan <strong>gagal panen total jika tidak dikendalikan.</li>
+                <li>Mengakibatkan gagal panen total jika tidak dikendalikan.</li>
             </ul>
         </div>
         """,
@@ -335,22 +335,22 @@ instar_data = [
     {
         "title": "Instar 1",
         "img": "assets/instar1.jpg",
-        "desc": "Ukuran 1.84–2.51 mm. Warna hijau muda, kepala hitam. Tubuh halus dan lebih banyak diam."
+        "desc": "Berukuran 1.84–2.51 mm. Warna hijau muda, kepala hitam. Tubuh halus dan lebih banyak diam."
     },
     {
         "title": "Instar 2",
         "img": "assets/instar2.jpg",
-        "desc": "Ukuran 5.1–6.82 mm. Kepala coklat kemerahan. Sudah aktif makan dan merusak daun."
+        "desc": "Berukuran 5.1–6.82 mm. Kepala coklat kemerahan. Sudah aktif makan dan merusak daun."
     },
     {
         "title": "Instar 3",
         "img": "assets/instar3.jpg",
-        "desc": "Ukuran 11.97–15.85 mm. Menyebar, menyerang daun bagian dalam dan pucuk tanaman."
+        "desc": "Berukuran 11.97–15.85 mm. Menyebar, menyerang daun bagian dalam dan pucuk tanaman."
     },
     {
         "title": "Instar 4",
         "img": "assets/instar4.jpg",
-        "desc": "Ukuran 14.25–18.7 mm. Garis-garis tubuh lebih jelas. Kepala dan kaki kecoklatan."
+        "desc": "Berukuran 14.25–18.7 mm. Garis-garis tubuh lebih jelas. Kepala dan kaki kecoklatan."
     }
 ]
 
