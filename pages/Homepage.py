@@ -1,8 +1,6 @@
 import streamlit as st
 from PIL import Image
 
-# === HEADER UTAMA ===
-
 st.markdown("""
 <style>
 #MainMenu, footer, header {visibility: hidden;}
@@ -212,8 +210,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# === BANNER ===
-# st.image("assets/banner.jpg", use_column_width=True)
 st.markdown("""
     <div class="banner-picture"> </div>
 """, unsafe_allow_html=True)
@@ -231,81 +227,54 @@ if st.button("Mulai"):
     
 st.markdown("""<div style="margin-bottom: 100vh"></div>""",unsafe_allow_html=True)
 
-# st.markdown("""
-# <div class="hero-section">
-#     <img src="https://i.imgur.com/6FYuwbg.png" class="logo-img2">
-#     <h1 class="hero-title">CROCIDETECT</h1>
-# </div>
-# """, unsafe_allow_html=True)
-
-# === FITUR UTAMA ===
-# st.markdown("---")
-with st.container():
-    st.markdown(f'<h1 style="text-align: center; font-size: 40px; color: #2e5339;">Fitur Utama</h1>', unsafe_allow_html=True)
-    col1, col2 = st.columns(2)
-    with col1:
+st.markdown(f'<h1 style="text-align: center; font-size: 40px; color: #2e5339;">Fitur Utama</h1>', unsafe_allow_html=True)
+col1, col2 = st.columns(2)
+with col1:
+    st.markdown(
+        '<div class="card"><strong>Prediksi Instar Otomatis</strong><br>'
+        'Model AI kami mengidentifikasi instar larva dengan akurat berdasarkan citra yang diunggah.</div>',
+        unsafe_allow_html=True
+    )
+    
+    with st.expander("Baca selengkapnya"):
         st.markdown(
-            '<div class="card"><strong>Prediksi Instar Otomatis</strong><br>'
-            'Model AI kami mengidentifikasi instar larva dengan akurat berdasarkan citra yang diunggah.</div>',
+            """
+            <div class="card">
+                <ul>
+                    <li>Menggunakan Model Pretrained CNN InceptionV3.</li>
+                    <li>Memprediksi tahapan instar (1 hingga 4) berdasarkan citra larva yang diunggah.</li>
+                    <li>Menampilkan hasil prediksi berserta tingkat kepercayaan (confidence score) dari setiap model.</li>
+                    <li>Membantu petani dan peneliti mengidentifikasi fase larva dengan cepat dan akurat.</li>
+                </ul>
+            </div>""",
             unsafe_allow_html=True
         )
-        
-        with st.expander("Baca selengkapnya"):
-            st.markdown(
-                """
-                <div class="card">
-                    <ul>
-                        <li>Menggunakan Model Pretrained CNN InceptionV3.</li>
-                        <li>Memprediksi tahapan instar (1 hingga 4) berdasarkan citra larva yang diunggah.</li>
-                        <li>Menampilkan hasil prediksi berserta tingkat kepercayaan (confidence score) dari setiap model.</li>
-                        <li>Membantu petani dan peneliti mengidentifikasi fase larva dengan cepat dan akurat.</li>
-                    </ul>
-                </div>""",
-                unsafe_allow_html=True
-            )
-            st.image("assets/prediksi-otomatis.jpg")
+        st.image("assets/prediksi-otomatis.jpg")
 
 
-    with col2:
+with col2:
+    st.markdown(
+        '<div class="card"><strong>Visualisasi Grad-CAM</strong><br>'
+        'Lihat bagian gambar mana yang menjadi fokus model dalam menentukan klasifikasi.</div>',
+        unsafe_allow_html=True
+    )
+    with st.expander("Baca selengkapnya"):
         st.markdown(
-            '<div class="card"><strong>Visualisasi Grad-CAM</strong><br>'
-            'Lihat bagian gambar mana yang menjadi fokus model dalam menentukan klasifikasi.</div>',
+            """
+            <div class="card">
+                <ul>
+                    <li>Menampilkan area penting pada gambar yang memengaruhi hasil keputusan prediksi model.</li>
+                </ul>
+            </div>""",
             unsafe_allow_html=True
         )
-        with st.expander("Baca selengkapnya"):
-            st.markdown(
-                """
-                <div class="card">
-                    <ul>
-                        <li>Menampilkan area penting pada gambar yang memengaruhi keputusan model.</li>
-                        <li>Dihasilkan dari layer konvolusi akhir dari model.</li>
-                        <li>Disajikan dalam bentuk gambar heatmap superimposed di atas gambar asli.</li>
-                    </ul>
-                </div>""",
-                unsafe_allow_html=True
-            )
-            st.image('assets/grad-cam.jpg')
+        st.image('assets/grad-cam.jpg')
 
 st.markdown("""<hr style="background-color: black; margin-left:5rem; margin-right:5rem;">""",unsafe_allow_html=True)
-
-# === GAMBAR CROCIDILOMIA DEWASA ===
-# col1, col2, col3 = st.columns(3)
-
-# with col1:
-#     st.write(' ')
-
-# with col2:
-#     st.image("assets/crocidolomia_adult.jpg")
-
-# with col3:
-#     st.write(' ')
-    
 
 st.markdown('<div style="display: flex; justify-content: center;"><img src="https://i.imgur.com/9zNBhxV.png" alt="Alternative text" style="height: 40%;"></div>', unsafe_allow_html=True)
 st.markdown(f'<h1 style="text-align: center; font-size: 40px; color: #2e5339;">Crocidolomia Pavonana</h1>', unsafe_allow_html=True)
 
-# === PENJELASAN ILMIAH ===
-# === INFORMASI PENTING (Menyamping 2 kolom seperti fitur utama) ===
 col1, col2 = st.columns(2)
 
 with col1:
@@ -362,7 +331,7 @@ with col4:
 
 st.markdown("""<hr style="background-color: black; margin-left:5rem; margin-right:5rem;">""",unsafe_allow_html=True)
 
-# === INSTAR SEBAGAI KARTU ===
+
 st.markdown(f'<h1 style="text-align: center; font-size: 40px; color: #2e5339;">Tahapan Instar Larva</h1>', unsafe_allow_html=True)
 instar_data = [
     {
@@ -394,7 +363,6 @@ for i in range(4):
         st.image(instar_data[i]["img"], use_column_width=True)
         st.markdown(f'<div class="card">{instar_data[i]["desc"]}</div>', unsafe_allow_html=True)
 
-# === FOOTER ===
 st.markdown("""<hr style="background-color: black; margin-left:5rem; margin-right:5rem;">""",unsafe_allow_html=True)
 st.markdown("""
         <div style="padding-left: 5rem; padding-right: 5rem; padding-bottom: 5rem; font-size: clamp(0.9rem, 1.5vw, 1.2rem);">
