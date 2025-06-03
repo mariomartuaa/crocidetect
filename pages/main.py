@@ -13,9 +13,9 @@ from io import BytesIO
 
 @st.cache_resource
 def load_inception_model():
-    model_path = 'InceptionV31_model.keras'
+    model_path = 'InceptionV32_model.keras'
     if not os.path.exists(model_path):
-        url = 'https://drive.google.com/uc?id=1brLqWkd9AQbhvSGkk7rM03V5I_NfebUj'
+        url = 'https://drive.google.com/uc?id=1H5QA7p4j7wNtsdnzVbtE1l3deaBh_KAi'
         gdown.download(url, model_path, quiet=False)
     return tf.keras.models.load_model(model_path)
     
