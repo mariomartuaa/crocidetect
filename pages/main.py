@@ -64,7 +64,6 @@ def make_gradcam_heatmap(img_array, model, last_conv_layer_name, pred_index=None
     return heatmap
 
 def superimpose_heatmap(img, heatmap, alpha=0.4):
-    # Convert PIL image to array and ensure RGB
     img = img.convert("RGB")
     img = np.array(img)
 
@@ -91,13 +90,14 @@ with margin_col1:
 with margin_col2:
     tab1, tab2 = st.tabs(["Klasifikasi", "Contoh Gambar"])
     with tab1:
-        st.markdown("""
-            <div class="card">
-                Sebaiknya unggah gambar yang berukuran minimal resolusi 512 x 512 piksel dan tidak buram, agar aplikasi dapat mengenali gambar dengan lebih akurat. 
-                Gambar yang terlalu kecil atau kabur bisa membuat hasil prediksi menjadi kurang tepat.
-            </div>
-            """,
-            unsafe_allow_html=True)
+        with st.expander("Baca selengkapnya"):
+            st.markdown("""
+                <div class="card">
+                    Pengguna disarankan untuk mengunggah gambar yang berukuran memiliki resolusi minimal 512 x 512 piksel dan tidak buram, agar aplikasi dapat mengenali gambar lebih akurat. 
+                    Gambar yang terlalu kecil atau kabur bisa membuat hasil prediksi menjadi kurang tepat.
+                </div>
+                """,
+                unsafe_allow_html=True)
         uploaded_file = st.file_uploader(label="Upload gambar", type=['jpg', 'jpeg', 'png'])
         if uploaded_file:
             image = Image.open(uploaded_file)
