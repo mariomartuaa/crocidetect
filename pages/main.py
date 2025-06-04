@@ -89,7 +89,7 @@ with margin_col1:
 
 with margin_col2:
     st.markdown("""<hr style="background-color: black;">""",unsafe_allow_html=True)
-    st.header("Upload Gambar")
+    st.header("Spesifikasi Gambar Input")
     with st.expander("📷 Gambar yang disarankan"):
         st.markdown("""
                 <div class="card">
@@ -123,6 +123,7 @@ with margin_col2:
             st.image("assets/instar4.jpg", use_column_width=True)
 
     
+    st.header("Upload Gambar")
     uploaded_file = st.file_uploader(label ='', type=['jpg', 'jpeg', 'png'])
     if uploaded_file:
         image = Image.open(uploaded_file)
