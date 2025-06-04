@@ -97,6 +97,26 @@ with margin_col2:
             - Ukuran file maksimum **200 MB**.  
             - Format file yang diterima: **JPG, JPEG, PNG**.
             """)
+        with st.expander("🐛 Contoh Gambar Instar"):
+            col1, col2 = st.columns(2)
+
+            with col1:
+                st.markdown('<h1 style="text-align: center; font-size: 20px; color: #2e5339;">Instar 1</h1>', unsafe_allow_html=True)
+                st.image("assets/instar1.jpg", use_column_width=True)
+            
+            with col2:
+                st.markdown('<h1 style="text-align: center; font-size: 20px; color: #2e5339;">Instar 2</h1>', unsafe_allow_html=True)
+                st.image("assets/instar2.jpg", use_column_width=True)
+            
+            col3, col4 = st.columns(2)
+            
+            with col3:
+                st.markdown('<h1 style="text-align: center; font-size: 20px; color: #2e5339;">Instar 3</h1>', unsafe_allow_html=True)
+                st.image("assets/instar3.jpg", use_column_width=True)
+            
+            with col4:
+                st.markdown('<h1 style="text-align: center; font-size: 20px; color: #2e5339;">Instar 4</h1>', unsafe_allow_html=True)
+                st.image("assets/instar4.jpg", use_column_width=True)
 
         
         uploaded_file = st.file_uploader(label ='', type=['jpg', 'jpeg', 'png'])
