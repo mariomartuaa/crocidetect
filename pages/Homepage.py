@@ -334,7 +334,7 @@ st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">P
 col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown(f'<h1 style="text-align: center; font-size: 20px; color: #2e5339;">Pestisida Nabati Tanaman Mindi</h1>', unsafe_allow_html=True)
+    st.markdown(f'<h1 style="text-align: center; font-size: 25px; color: #2e5339;">Pestisida Nabati Tanaman Mindi</h1>', unsafe_allow_html=True)
     img1_col = st.columns([1,3,1])
     with img1_col[0]:
         st.write("")
