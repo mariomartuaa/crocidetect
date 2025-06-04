@@ -331,7 +331,8 @@ st.markdown("""<hr style="background-color: black; margin-left:5rem; margin-righ
 
 
 st.markdown(f'<h1 style="text-align: center; font-size: 40px; color: #2e5339;">Tahapan Instar Larva</h1>', unsafe_allow_html=True)
-st.subheader("Sebuah instar adalah sebuah tahap perkembangan pada artropoda seperti serangga. Perbedaan diantara instar umumnya dapat dilihat dari perubahan ukuran tubuh, warna, pola, jumlah segmen tubuh, dan lebar kepala.")
+st.markdown(f'<h1 style="text-align: center; font-size: 20px; color: #2e5339;">Sebuah instar adalah sebuah tahap perkembangan pada artropoda seperti serangga. Perbedaan diantara instar umumnya dapat dilihat dari perubahan ukuran tubuh, warna, pola, jumlah segmen tubuh, dan lebar kepala.</h1>', unsafe_allow_html=True)
+
 instar_data = [
     {
         "title": "Instar 1",
