@@ -91,6 +91,12 @@ else:
         color:#2e5339;
     }
 
+    [data-testid="stMarkdownContainer"] p {
+      font-size: 50px;
+      font-weight: bold;
+    }
+
+
     /* Judul besar */
     .big-title {
         font-size: 36px;
