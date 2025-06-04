@@ -65,7 +65,7 @@ with col1:
     st.markdown(f'<h1 style="text-align: center; font-size: 25px; color: #2e5339;">Pestisida Nabati Tanaman Mindi</h1>', unsafe_allow_html=True)
     st.image("assets/Mindi.jpg")
     st.markdown("""
-        <div class="card-informasi">
+        <div class="card">
             <p>Efek terhadap hama:</p>
             <ul>
                 <li>Penolak (repellent)</li>
@@ -94,7 +94,7 @@ with col2:
     st.markdown(f'<h1 style="text-align: center; font-size: 25px; color: #2e5339;">Pestisida Nabati Tanaman Pacar cina</h1>', unsafe_allow_html=True)
     st.image("assets/Pacar Cina.jpg")
     st.markdown("""
-        <div class="card-informasi">
+        <div class="card">
             <p>Efek terhadap hama:</p>
             <ul>
                 <li>Bersifat sebagai insektisida</li>
