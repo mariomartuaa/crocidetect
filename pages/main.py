@@ -92,7 +92,7 @@ with margin_col2:
     tab1, tab2 = st.tabs(["Klasifikasi", "Contoh Gambar"])
     with tab1:
         st.markdown("""
-            <div class="card-informasi">
+            <div class="card">
                 Sebaiknya unggah gambar yang berukuran minimal resolusi 512 x 512 piksel dan tidak buram, agar aplikasi dapat mengenali gambar dengan lebih akurat. 
                 Gambar yang terlalu kecil atau kabur bisa membuat hasil prediksi menjadi kurang tepat.
             </div>
