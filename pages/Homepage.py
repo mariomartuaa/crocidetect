@@ -329,6 +329,43 @@ with col4:
 
 st.markdown("""<hr style="background-color: black; margin-left:5rem; margin-right:5rem;">""",unsafe_allow_html=True)
 
+st.markdown(f'<h1 style="text-align: center; font-size: 40px; color: #2e5339;">Pengendalian</h1>', unsafe_allow_html=True)
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Mindi (Melia azedarach)</h1>', unsafe_allow_html=True)
+    st.markdown("""
+        <div class="card-informasi">
+            <p>Efek terhadap hama:</p>
+            <ul>
+                <li>Penolak (repellent)</li>
+                <li><strong>Phylum</strong>: Arthropoda<br></li>
+                <li>Penghambat aktivitas makan (antifeedant)</li>
+                <li>Menghambat pembentukan telur</li>
+                <li>Menghambat perkembangan serangga</li>
+                <li>Racun perut dan racun kontak</li>
+                <li>Bersifat sebagai insektisida, bakterisida, nematisida dan fungisida</li>
+            </ul>
+        </div>
+        """,
+        unsafe_allow_html=True)
+
+with col2:
+    st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Dampak Kerusakan</h1>', unsafe_allow_html=True)
+    st.markdown("""
+        <div class="card-informasi">
+            <p>Efek terhadap hama:</p>
+            <ul>
+                <li>Bersifat sebagai insektisida</li>
+                <li>Penghambat makan (antifeedant)</li>
+                <li>Penghambat perkembangan serangga (Growth regulator)</li>
+            </ul>
+        </div>
+        """,
+        unsafe_allow_html=True)
+
+st.markdown("""<hr style="background-color: black; margin-left:5rem; margin-right:5rem;">""",unsafe_allow_html=True)
 
 st.markdown(f'<h1 style="text-align: center; font-size: 40px; color: #2e5339;">Tahapan Instar Larva</h1>', unsafe_allow_html=True)
 st.markdown(f"""<h1 style="text-align: center; font-size: clamp(14px, 3vw, 20px); color: #2e5339; margin-left: 5rem; margin-right: 5rem;">Sebuah instar adalah sebuah tahap perkembangan pada artropoda seperti serangga. Perbedaan diantara instar umumnya dapat dilihat dari perubahan ukuran tubuh, warna, pola, dan perilaku.</h1>""", unsafe_allow_html=True)
