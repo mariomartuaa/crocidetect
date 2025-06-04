@@ -82,8 +82,8 @@ st.markdown("""
     <img src="https://i.imgur.com/6FYuwbg.png" class="logo-img2">
     <h1 class="hero-title">CROCIDETECT</h1>
 </div>
-st.markdown("""<hr style="background-color: black;">""",unsafe_allow_html=True)
 """, unsafe_allow_html=True)
+st.markdown("""<hr style="background-color: black;">""",unsafe_allow_html=True)
 margin_col1, margin_col2, margin_col3 = st.columns([1, 3, 1])
 with margin_col1:
     st.write("")
