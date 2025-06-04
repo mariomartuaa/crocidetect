@@ -123,7 +123,7 @@ with margin_col2:
             st.image("assets/instar4.jpg", use_column_width=True)
 
     
-    st.header("Upload Gambar")
+    st.header("Unggah Gambar")
     uploaded_file = st.file_uploader(label ='', type=['jpg', 'jpeg', 'png'])
     if uploaded_file:
         image = Image.open(uploaded_file)
