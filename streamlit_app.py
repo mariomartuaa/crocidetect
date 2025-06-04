@@ -96,7 +96,7 @@ else:
     }
 
     [data-testid="stMarkdownContainer"] hr {
-      background-color: rgb(61, 213, 109);
+      background-color: #77DDAA;
       border: 2px solid;
     }
 
