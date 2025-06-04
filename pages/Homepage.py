@@ -369,7 +369,7 @@ with col1:
             unsafe_allow_html=True)
 
 with col2:
-    st.markdown(f'<h1 style="text-align: center; font-size: 20px; color: #2e5339;">Pestisida Nabati Tanaman Pacar cina</h1>', unsafe_allow_html=True)
+    st.markdown(f'<h1 style="text-align: center; font-size: 25px; color: #2e5339;">Pestisida Nabati Tanaman Pacar cina</h1>', unsafe_allow_html=True)
     img2_col = st.columns([1,3,1])
     with img2_col[0]:
         st.write("")
