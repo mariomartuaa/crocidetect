@@ -335,7 +335,13 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Pestisida Nabati Tanaman Mindi</h1>', unsafe_allow_html=True)
-    st.image("assets/Mindi.jpg")
+    col= st.columns([1,3,1)
+    with col[0]:
+        st.write("")
+    with col[1]:
+        st.image("assets/Mindi.jpg")
+    with col[2]:
+        st.write("")
     st.markdown("""
         <div class="card-informasi">
             <p>Efek terhadap hama:</p>
