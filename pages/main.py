@@ -93,8 +93,10 @@ with margin_col2:
         with st.expander("📷 Gambar yang disarankan"):
             st.markdown("""
                 <div class="card">
-                    Pengguna disarankan untuk mengunggah gambar yang memiliki resolusi minimal 512 x 512 piksel dan tidak buram, agar aplikasi dapat mengenali gambar lebih akurat. 
-                    Gambar yang terlalu kecil atau kabur bisa membuat hasil prediksi menjadi kurang tepat.
+                    <li>Unggah gambar dengan resolusi minimal 512 x 512 piksel dan tidak buram agar hasil prediksi lebih akurat.</li>
+                    <li>Gambar yang terlalu kecil atau kabur dapat membuat hasil prediksi kurang tepat.</li>
+                    <li>Ukuran file maksimum 200 MB.</li>
+                    <li>Format file yang diterima: JPG, JPEG, PNG.</li>
                 </div>
                 """,
                 unsafe_allow_html=True)
