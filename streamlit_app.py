@@ -87,17 +87,14 @@ else:
         color: red;
     }
 
-    [data-testid="stMarkdownContainer"]{
-        color:#2e5339;
-    }
-
     [data-testid="stMarkdownContainer"] hr {
       background-color: #77DDAA;
       border: 2px solid;
     }
     
     [data-testid="stMarkdownContainer"] p {
-      font-size: 20px;
+        color:#2e5339;
+        font-size: 17px;
     }
 
     /* Judul besar */
