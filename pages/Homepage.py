@@ -359,7 +359,7 @@ instar_data = [
 cols = st.columns(4)
 for i in range(4):
     with cols[i]:
-        st.markdown(f'<h1 style="text-align: center; font-size: 20px; color: #2e5339;">{instar_data[i]["title"]}</h1>', unsafe_allow_html=True)
+        st.markdown(f'<h1 style="font-size: 20px; color: #2e5339;">{instar_data[i]["title"]}</h1>', unsafe_allow_html=True)
         st.image(instar_data[i]["img"], use_column_width=True)
         st.markdown(f'<div class="card">{instar_data[i]["desc"]}</div>', unsafe_allow_html=True)
 
