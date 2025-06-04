@@ -88,8 +88,7 @@ else:
     }
 
     [data-testid="stMarkdownContainer"] hr {
-      background-color: #77DDAA;
-      border: 2px solid;
+      border: 2px solid #77DDAA;
     }
     
     [data-testid="stMarkdownContainer"] p {
