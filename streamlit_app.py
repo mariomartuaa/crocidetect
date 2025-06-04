@@ -97,7 +97,7 @@ else:
 
     [data-testid="stMarkdownContainer"] hr {
       background-color: rgb(61, 213, 109);
-      border: 3px solid;
+      border: 2px solid;
     }
 
 
