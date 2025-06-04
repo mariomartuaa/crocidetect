@@ -334,7 +334,7 @@ st.markdown(f'<h1 style="text-align: center; font-size: 40px; color: #2e5339;">P
 col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Mindi (Melia azedarach)</h1>', unsafe_allow_html=True)
+    st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Tanaman Mindi</h1>', unsafe_allow_html=True)
     st.image("assets/prediksi-otomatis.jpg")
     st.markdown("""
         <div class="card-informasi">
@@ -363,7 +363,7 @@ with col1:
             unsafe_allow_html=True)
 
 with col2:
-    st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Pacar cina  (Aglaia odorata Lour.)</h1>', unsafe_allow_html=True)
+    st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Tanaman Pacar cina</h1>', unsafe_allow_html=True)
     st.image("assets/prediksi-otomatis.jpg")
     st.markdown("""
         <div class="card-informasi">
