@@ -99,7 +99,9 @@ with margin_col2:
                 </div>
                 """,
                 unsafe_allow_html=True)
-        uploaded_file = st.file_uploader(label="Upload gambar", type=['jpg', 'jpeg', 'png'])
+        
+        st.header("Upload Gambar")
+        uploaded_file = st.file_uploader(type=['jpg', 'jpeg', 'png'])
         if uploaded_file:
             image = Image.open(uploaded_file)
             st.image(image, use_column_width=True)
