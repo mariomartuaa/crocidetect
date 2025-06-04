@@ -184,30 +184,26 @@ with margin_col2:
                 st.image(superimposed_img_inception, caption="Grad-CAM InceptionV3", use_column_width=True)
                 gradcam_status_placeholder.success("✅ Grad-CAM berhasil dibuat!")
     with tab2:
-        instar_data = [
-            {
-                "title": "Instar 1",
-                "img": "assets/instar1.jpg",
-            },
-            {
-                "title": "Instar 2",
-                "img": "assets/instar2.jpg",
-            },
-            {
-                "title": "Instar 3",
-                "img": "assets/instar3.jpg",
-            },
-            {
-                "title": "Instar 4",
-                "img": "assets/instar4.jpg",
-            }
-        ]
+        col1, col2 = st.columns(2)
 
-        cols = st.columns(4)
-        for i in range(4):
-            with cols[i]:
-                st.markdown(f'<h1 style="text-align: center; font-size: 20px; color: #2e5339;">{instar_data[i]["title"]}</h1>', unsafe_allow_html=True)
-                st.image(instar_data[i]["img"], use_column_width=True)
+        with col1:
+            st.markdown('<h1 style="text-align: center; font-size: 20px; color: #2e5339;">Instar 1</h1>', unsafe_allow_html=True)
+            st.image("assets/instar1.jpg", use_column_width=True)
+        
+        with col2:
+            st.markdown('<h1 style="text-align: center; font-size: 20px; color: #2e5339;">Instar 2</h1>', unsafe_allow_html=True)
+            st.image("assets/instar2.jpg", use_column_width=True)
+        
+        col3, col4 = st.columns(2)
+        
+        with col3:
+            st.markdown('<h1 style="text-align: center; font-size: 20px; color: #2e5339;">Instar 3</h1>', unsafe_allow_html=True)
+            st.image("assets/instar3.jpg", use_column_width=True)
+        
+        with col4:
+            st.markdown('<h1 style="text-align: center; font-size: 20px; color: #2e5339;">Instar 4</h1>', unsafe_allow_html=True)
+            st.image("assets/instar4.jpg", use_column_width=True)
+
 
 with margin_col3:
     st.write("")
