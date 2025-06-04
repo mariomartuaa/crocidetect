@@ -93,13 +93,17 @@ with margin_col2:
         st.header("Upload Gambar")
         with st.expander("📷 Gambar yang disarankan"):
             st.markdown("""
-                <div class="card">
-                    <li>Resolusi minimal 512 x 512 piksel dan tidak buram agar hasil prediksi lebih akurat.</li>
-                    <li>Ukuran file maksimum 200 MB.</li>
-                    <li>Format file yang diterima: JPG, JPEG, PNG.</li>
-                </div>
-                """,
-                unsafe_allow_html=True)
+            **📝 Tips Upload Gambar:**
+            
+            - Unggah gambar dengan resolusi minimal **512 x 512 piksel** dan tidak buram,  
+              agar hasil prediksi lebih akurat.  
+            - Gambar yang terlalu kecil atau kabur dapat membuat hasil prediksi kurang tepat.  
+            - Ukuran file maksimum **200 MB**.  
+            - Format file yang diterima: **JPG, JPEG, PNG**.  
+            - Latar belakang gambar larva bebas,  
+              jadi tidak perlu khawatir soal latar belakang.
+            """)
+
         
         uploaded_file = st.file_uploader(label ='', type=['jpg', 'jpeg', 'png'])
         if uploaded_file:
