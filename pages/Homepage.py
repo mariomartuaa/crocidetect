@@ -335,12 +335,12 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Pestisida Nabati Tanaman Mindi</h1>', unsafe_allow_html=True)
-    col= st.columns([1,3,1])
-    with col[0]:
+    img1_col = st.columns([1,3,1])
+    with img1_col[0]:
         st.write("")
-    with col[1]:
+    with img1_col[1]:
         st.image("assets/Mindi.jpg")
-    with col[2]:
+    with img1_col[2]:
         st.write("")
     st.markdown("""
         <div class="card-informasi">
@@ -370,11 +370,12 @@ with col1:
 
 with col2:
     st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Pestisida Nabati Tanaman Pacar cina</h1>', unsafe_allow_html=True)
-    with col[0]:
+    img2_col = st.columns([1,3,1])
+    with img2_col[0]:
         st.write("")
-    with col[1]:
+    with img2_col[1]:
         st.image("assets/Pacar Cina.jpg")
-    with col[2]:
+    with img2_col[2]:
         st.write("")
     st.markdown("""
         <div class="card-informasi">
