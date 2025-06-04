@@ -59,9 +59,67 @@ with col4:
 
 st.markdown("""<hr style="background-color: black;">""",unsafe_allow_html=True)
 
+col1, col2 = st.columns(2)
+
+with col1:
+    st.markdown(f'<h1 style="text-align: center; font-size: 25px; color: #2e5339;">Pestisida Nabati Tanaman Mindi</h1>', unsafe_allow_html=True)
+    st.image("assets/Mindi.jpg")
+    st.markdown("""
+        <div class="card-informasi">
+            <p>Efek terhadap hama:</p>
+            <ul>
+                <li>Penolak (repellent)</li>
+                <li>Penghambat aktivitas makan (antifeedant)</li>
+                <li>Menghambat pembentukan telur</li>
+                <li>Menghambat perkembangan serangga</li>
+                <li>Racun perut dan racun kontak</li>
+                <li>Bersifat sebagai insektisida, bakterisida, nematisida dan fungisida</li>
+            </ul>
+        </div>
+        """,
+        unsafe_allow_html=True)
+    with st.expander("Baca selengkapnya"):
+        st.markdown(
+            """
+            <div class="card">
+                <p><strong>Bagian tanaman yang digunakan:</strong> daun dan biji</p>
+                <p><strong>Cara pembuatan:</strong></p>
+                <p>Biji mindi dikupas / daun ditumbuk lalu direndam dalam air dengan konsentrasi 25 – 50 gram/l selama 24 jam, 
+                Larutan yang dihasilkan disaring agar didapatkan larutan yang siap diaplikasikan</p>
+                <p><strong>Cara penggunaan:</strong> Semprotkan ke seluruh bagian tanaman yang terserang</p>
+            </div>""",
+            unsafe_allow_html=True)
+
+with col2:
+    st.markdown(f'<h1 style="text-align: center; font-size: 25px; color: #2e5339;">Pestisida Nabati Tanaman Pacar cina</h1>', unsafe_allow_html=True)
+    st.image("assets/Pacar Cina.jpg")
+    st.markdown("""
+        <div class="card-informasi">
+            <p>Efek terhadap hama:</p>
+            <ul>
+                <li>Bersifat sebagai insektisida</li>
+                <li>Penghambat makan (antifeedant)</li>
+                <li>Penghambat perkembangan serangga (Growth regulator)</li>
+            </ul>
+        </div>
+        """,
+        unsafe_allow_html=True)
+    with st.expander("Baca selengkapnya"):
+        st.markdown(
+            """
+            <div class="card">
+                <p><strong>Bagian tanaman yang digunakan:</strong> daun</p>
+                <p><strong>Cara pembuatan:</strong></p>
+                <p>Hancurkan ranting atau kulit batang pacar cina. Tambahkan 1 liter air. Didihkan selama 45 – 75 menit. Dinginkan. Tambahkan deterjen 
+                aduk sampai rata. Lalu terakhir, Saring </p>
+                <p><strong>Cara penggunaan:</strong> Semprotkan ke seluruh bagian tanaman yang terserang pada pagi atau sore hari</p>
+            </div>""",
+            unsafe_allow_html=True)
 
 st.markdown(f'<h1 style="text-align: center; font-size: 40px; color: #2e5339;">Tahapan Instar Larva</h1>', unsafe_allow_html=True)
 st.markdown(f"""<h1 style="text-align: center; font-size: clamp(14px, 3vw, 20px); color: #2e5339; margin-left: 5rem; margin-right: 5rem;">Sebuah instar adalah sebuah tahap perkembangan pada artropoda seperti serangga. Perbedaan diantara instar umumnya dapat dilihat dari perubahan ukuran tubuh, warna, pola, dan perilaku.</h1>""", unsafe_allow_html=True)
+
+st.markdown("""<hr style="background-color: black;">""",unsafe_allow_html=True)
 
 cols = st.columns(4)
 
