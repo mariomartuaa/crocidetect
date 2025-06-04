@@ -85,13 +85,6 @@ with cols[3]:
     st.image("assets/instar4.jpg", use_column_width=True)
     st.markdown('<div class="card">Berukuran 14.25–18.7 mm. Garis-garis tubuh lebih jelas. Kepala dan kaki kecoklatan.</div>', unsafe_allow_html=True)
 
-cols = st.columns(4)
-for i in range(4):
-    with cols[i]:
-        st.markdown(f'<h1 style="text-align: center; font-size: 20px; color: #2e5339;">{instar_data[i]["title"]}</h1>', unsafe_allow_html=True)
-        st.image(instar_data[i]["img"], use_column_width=True)
-        st.markdown(f'<div class="card">{instar_data[i]["desc"]}</div>', unsafe_allow_html=True)
-
 st.markdown("""<hr style="background-color: black; margin-left:5rem; margin-right:5rem;">""",unsafe_allow_html=True)
 st.markdown("""
         <div style="padding-left: 5rem; padding-right: 5rem; padding-bottom: 5rem; font-size: clamp(0.9rem, 1.5vw, 1.2rem);">
