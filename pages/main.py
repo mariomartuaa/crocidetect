@@ -101,7 +101,7 @@ with margin_col2:
                 unsafe_allow_html=True)
         
         st.header("Upload Gambar")
-        uploaded_file = st.file_uploader(type=['jpg', 'jpeg', 'png'])
+        uploaded_file = st.file_uploader(label ='', type=['jpg', 'jpeg', 'png'])
         if uploaded_file:
             image = Image.open(uploaded_file)
             st.image(image, use_column_width=True)
