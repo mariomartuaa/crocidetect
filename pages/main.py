@@ -92,12 +92,15 @@ with margin_col2:
     with tab1:
         st.header("Upload Gambar")
         with st.expander("📷 Gambar yang disarankan"):
-            st.markdown("""<ul class="indent-list">
-                  <li>Resolusi minimal <strong>512 x 512 piksel</strong> dan tidak buram,  
-                      agar hasil prediksi lebih akurat.</li>
-                  <li>Ukuran file maksimum <strong>200 MB</strong>.</li>
-                  <li>Format file yang diterima: <strong>JPG, JPEG, PNG</strong>.</li>
-                </ul>
+            st.markdown("""
+                    <div class="card">
+                        <ul class="indent-list">
+                          <li>Resolusi minimal <strong>512 x 512 piksel</strong> dan tidak buram,  
+                              agar hasil prediksi lebih akurat.</li>
+                          <li>Ukuran file maksimum <strong>200 MB</strong>.</li>
+                          <li>Format file yang diterima: <strong>JPG, JPEG, PNG</strong>.</li>
+                        </ul>
+                    </div>
             """, unsafe_allow_html=True)
         with st.expander("🐛 Contoh Gambar Instar"):
             col1, col2 = st.columns(2)
