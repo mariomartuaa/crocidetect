@@ -92,7 +92,7 @@ else:
     }
 
     [data-testid="stMarkdownContainer"] p {
-      font-size: 20px;
+      font-size: 15px;
       font-weight: bold;
     }
 
