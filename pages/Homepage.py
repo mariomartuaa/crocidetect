@@ -373,7 +373,7 @@ with col2:
     with col[0]:
         st.write("")
     with col[1]:
-        st.image("assets/Pasar Cina.jpg")
+        st.image("assets/Pacar Cina.jpg")
     with col[2]:
         st.write("")
     st.markdown("""
