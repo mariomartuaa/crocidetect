@@ -88,7 +88,7 @@ with margin_col1:
     st.write("")
 
 with margin_col2:
-    st.markdown("""<hr style="background-color: rgb(61, 213, 109);">""",unsafe_allow_html=True)
+    st.markdown("""<hr style="background-color: rgb(61, 213, 109); border-radius: 3px;">""",unsafe_allow_html=True)
     st.header("Spesifikasi Gambar Input")
     with st.expander("📷 Gambar yang disarankan"):
         st.markdown("""
