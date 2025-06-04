@@ -335,6 +335,7 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Mindi (Melia azedarach)</h1>', unsafe_allow_html=True)
+    st.image("assets/prediksi-otomatis.jpg")
     st.markdown("""
         <div class="card-informasi">
             <p>Efek terhadap hama:</p>
@@ -349,6 +350,17 @@ with col1:
         </div>
         """,
         unsafe_allow_html=True)
+    with st.expander("Baca selengkapnya"):
+        st.markdown(
+            """
+            <div class="card">
+                <p><strong>Bagian tanaman yang digunakan:</strong> daun dan biji</p>
+                <p><strong>Cara pembuatan:</strong></p>
+                <p>Biji mindi dikupas / daun ditumbuk lalu direndam dalam air dengan konsentrasi 25 – 50 gram/l selama 24 jam, 
+                Larutan yang dihasilkan disaring agar didapatkan larutan yang siap diaplikasikan</p>
+                <p><strong>Cara penggunaan:</strong> Semprotkan ke seluruh bagian tanaman yang terserang</p>
+            </div>""",
+            unsafe_allow_html=True)
 
 with col2:
     st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Pacar cina  (Aglaia odorata Lour.)</h1>', unsafe_allow_html=True)
@@ -368,11 +380,11 @@ with col2:
         st.markdown(
             """
             <div class="card">
-                <p><strong>Bagian tanaman yang digunakan:</strong> daun dan biji</p>
+                <p><strong>Bagian tanaman yang digunakan:</strong> daun</p>
                 <p><strong>Cara pembuatan:</strong></p>
-                <p>Biji mindi dikupas / daun ditumbuk lalu direndam dalam air dengan konsentrasi 25 – 50 gram/l selama 24 jam, 
-                Larutan yang dihasilkan disaring agar didapatkan larutan yang siap diaplikasikan</p>
-                <p><strong>Cara penggunaan:</strong> Semprotkan ke seluruh bagian tanaman yang terserang</p>
+                <p>Hancurkan ranting atau kulit batang pacar cina. Tambahkan 1 liter air. Didihkan selama 45 – 75 menit. Dinginkan. Tambahkan deterjen 
+                aduk sampai rata. Lalu terakhir, Saring </p>
+                <p><strong>Cara penggunaan:</strong> Semprotkan ke seluruh bagian tanaman yang terserang pada pagi atau sore hari</p>
             </div>""",
             unsafe_allow_html=True)
 
