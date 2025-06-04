@@ -370,7 +370,12 @@ with col1:
 
 with col2:
     st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Pestisida Nabati Tanaman Pacar cina</h1>', unsafe_allow_html=True)
-    st.image("assets/Pacar Cina.jpg")
+    with col[0]:
+        st.write("")
+    with col[1]:
+        st.image("assets/Pasar Cina.jpg")
+    with col[2]:
+        st.write("")
     st.markdown("""
         <div class="card-informasi">
             <p>Efek terhadap hama:</p>
