@@ -105,21 +105,21 @@ with margin_col2:
         col1, col2 = st.columns(2)
 
         with col1:
-            st.markdown('<h1 style="text-align: center; font-size: 20px; color: #2e5339;">Instar 1</h1>', unsafe_allow_html=True)
+            st.markdown('<h1 style="text-align: center; font-size: 20px; color: #2e5339;">Contoh Gambar Instar 1</h1>', unsafe_allow_html=True)
             st.image("assets/instar1.jpg", use_column_width=True)
         
         with col2:
-            st.markdown('<h1 style="text-align: center; font-size: 20px; color: #2e5339;">Instar 2</h1>', unsafe_allow_html=True)
+            st.markdown('<h1 style="text-align: center; font-size: 20px; color: #2e5339;">Contoh Gambar Instar 2</h1>', unsafe_allow_html=True)
             st.image("assets/instar2.jpg", use_column_width=True)
         
         col3, col4 = st.columns(2)
         
         with col3:
-            st.markdown('<h1 style="text-align: center; font-size: 20px; color: #2e5339;">Instar 3</h1>', unsafe_allow_html=True)
+            st.markdown('<h1 style="text-align: center; font-size: 20px; color: #2e5339;">Contoh Gambar Instar 3</h1>', unsafe_allow_html=True)
             st.image("assets/instar3.jpg", use_column_width=True)
         
         with col4:
-            st.markdown('<h1 style="text-align: center; font-size: 20px; color: #2e5339;">Instar 4</h1>', unsafe_allow_html=True)
+            st.markdown('<h1 style="text-align: center; font-size: 20px; color: #2e5339;">Contoh Gambar Instar 4</h1>', unsafe_allow_html=True)
             st.image("assets/instar4.jpg", use_column_width=True)
 
     
