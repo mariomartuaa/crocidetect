@@ -90,7 +90,7 @@ with margin_col1:
 with margin_col2:
     tab1, tab2 = st.tabs(["Klasifikasi", "Contoh Gambar"])
     with tab1:
-        with st.expander("Baca selengkapnya"):
+        with st.expander("📷 Gambar yang disarankan"):
             st.markdown("""
                 <div class="card">
                     Pengguna disarankan untuk mengunggah gambar yang berukuran memiliki resolusi minimal 512 x 512 piksel dan tidak buram, agar aplikasi dapat mengenali gambar lebih akurat. 
