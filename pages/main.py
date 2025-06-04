@@ -90,6 +90,7 @@ with margin_col1:
 with margin_col2:
     tab1, tab2 = st.tabs(["Klasifikasi", "Contoh Gambar"])
     with tab1:
+        st.header("Upload Gambar")
         with st.expander("📷 Gambar yang disarankan"):
             st.markdown("""
                 <div class="card">
@@ -100,7 +101,6 @@ with margin_col2:
                 """,
                 unsafe_allow_html=True)
         
-        st.header("Upload Gambar")
         uploaded_file = st.file_uploader(label ='', type=['jpg', 'jpeg', 'png'])
         if uploaded_file:
             image = Image.open(uploaded_file)
