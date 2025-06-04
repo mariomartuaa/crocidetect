@@ -61,28 +61,29 @@ st.markdown("""<hr style="background-color: black; margin-left:5rem; margin-righ
 
 
 st.markdown(f'<h1 style="text-align: center; font-size: 40px; color: #2e5339;">Tahapan Instar Larva</h1>', unsafe_allow_html=True)
-instar_data = [
-    {
-        "title": "Instar 1",
-        "img": "assets/instar1.jpg",
-        "desc": "Berukuran 1.84–2.51 mm. Warna hijau muda, kepala hitam. Tubuh halus dan lebih banyak diam."
-    },
-    {
-        "title": "Instar 2",
-        "img": "assets/instar2.jpg",
-        "desc": "Berukuran 5.1–6.82 mm. Kepala coklat kemerahan. Sudah aktif makan dan merusak daun."
-    },
-    {
-        "title": "Instar 3",
-        "img": "assets/instar3.jpg",
-        "desc": "Berukuran 11.97–15.85 mm. Menyebar, menyerang daun bagian dalam dan pucuk tanaman."
-    },
-    {
-        "title": "Instar 4",
-        "img": "assets/instar4.jpg",
-        "desc": "Berukuran 14.25–18.7 mm. Garis-garis tubuh lebih jelas. Kepala dan kaki kecoklatan."
-    }
-]
+st.markdown(f"""<h1 style="text-align: center; font-size: clamp(14px, 3vw, 20px); color: #2e5339; margin-left: 5rem; margin-right: 5rem;">Sebuah instar adalah sebuah tahap perkembangan pada artropoda seperti serangga. Perbedaan diantara instar umumnya dapat dilihat dari perubahan ukuran tubuh, warna, pola, dan perilaku.</h1>""", unsafe_allow_html=True)
+
+cols = st.columns(4)
+
+with cols[0]:
+    st.markdown('<h1 style="text-align: center; font-size: 20px; color: #2e5339;">Instar 1</h1>', unsafe_allow_html=True)
+    st.image("assets/instar1.jpg", use_column_width=True)
+    st.markdown('<div class="card">Berukuran 1.84–2.51 mm. Warna hijau muda, kepala hitam. Tubuh halus dan lebih banyak diam.</div>', unsafe_allow_html=True)
+
+with cols[1]:
+    st.markdown('<h1 style="text-align: center; font-size: 20px; color: #2e5339;">Instar 2</h1>', unsafe_allow_html=True)
+    st.image("assets/instar2.jpg", use_column_width=True)
+    st.markdown('<div class="card">Berukuran 5.1–6.82 mm. Kepala coklat kemerahan. Sudah aktif makan dan merusak daun.</div>', unsafe_allow_html=True)
+
+with cols[2]:
+    st.markdown('<h1 style="text-align: center; font-size: 20px; color: #2e5339;">Instar 3</h1>', unsafe_allow_html=True)
+    st.image("assets/instar3.jpg", use_column_width=True)
+    st.markdown('<div class="card">Berukuran 11.97–15.85 mm. Menyebar, menyerang daun bagian dalam dan pucuk tanaman.</div>', unsafe_allow_html=True)
+
+with cols[3]:
+    st.markdown('<h1 style="text-align: center; font-size: 20px; color: #2e5339;">Instar 4</h1>', unsafe_allow_html=True)
+    st.image("assets/instar4.jpg", use_column_width=True)
+    st.markdown('<div class="card">Berukuran 14.25–18.7 mm. Garis-garis tubuh lebih jelas. Kepala dan kaki kecoklatan.</div>', unsafe_allow_html=True)
 
 cols = st.columns(4)
 for i in range(4):
