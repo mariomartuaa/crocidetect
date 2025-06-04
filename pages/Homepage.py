@@ -335,7 +335,7 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Pestisida Nabati Tanaman Mindi</h1>', unsafe_allow_html=True)
-    col= st.columns([1,3,1)
+    col= st.columns([1,3,1])
     with col[0]:
         st.write("")
     with col[1]:
