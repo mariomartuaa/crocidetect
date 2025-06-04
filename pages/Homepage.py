@@ -216,7 +216,7 @@ st.markdown("""
 
 st.markdown("""
     <div class="banner">
-        <img src="https://i.imgur.com/OlNcJeK.png" class="logo-img">
+        <img src="https://i.imgur.com/jL7dki8.png" class="logo-img">
         <h2>Unggah gambar larva Crocidolomia pavonana dan lihat hasil prediksi tahapan instarnya secara otomatis.</h2>
     </div>
 """, unsafe_allow_html=True)
