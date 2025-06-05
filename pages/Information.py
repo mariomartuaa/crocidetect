@@ -68,7 +68,7 @@ with col1:
     st.image("assets/Mindi.jpg")
     st.markdown("""
         <div class="card">
-            <p>Efek terhadap hama:</p>
+            <p><strong>Efek terhadap hama:</strong></p>
             <ul>
                 <li>Penolak (repellent)</li>
                 <li>Penghambat aktivitas makan (antifeedant)</li>
@@ -97,7 +97,7 @@ with col2:
     st.image("assets/Pacar Cina.jpg")
     st.markdown("""
         <div class="card">
-            <p>Efek terhadap hama:</p>
+            <p><strong>Efek terhadap hama:</strong></p>
             <ul>
                 <li>Bersifat sebagai insektisida</li>
                 <li>Penghambat makan (antifeedant)</li>
