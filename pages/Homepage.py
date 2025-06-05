@@ -211,6 +211,11 @@ st.markdown("""
     color:#2e5339;
     font-size: 17px;
 }
+
+[data-testid="stExpander"] {
+    padding-left: 5rem;
+    padding-right: 5rem;
+}
 </style>
 """, unsafe_allow_html=True)
 
