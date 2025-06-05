@@ -207,6 +207,10 @@ st.markdown("""
     75% { background-position: right top; }
 }
 
+[data-testid="stMarkdownContainer"] p {
+    color:#2e5339;
+    font-size: 17px;
+}
 </style>
 """, unsafe_allow_html=True)
 
