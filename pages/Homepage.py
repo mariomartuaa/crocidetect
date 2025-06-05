@@ -215,6 +215,7 @@ st.markdown("""
 [data-testid="stExpander"] {
     padding-left: 5rem;
     padding-right: 5rem;
+    padding-bottom: 2rem;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -426,7 +427,7 @@ with cols[3]:
 
 st.markdown("""<hr style="background-color: black; margin-left:5rem; margin-right:5rem;">""",unsafe_allow_html=True)
 
-with st.expander("Referensi Penjelasan"):
+with st.expander("📚 Referensi Penjelasan"):
     st.markdown("""
             <div style="font-size: clamp(0.9rem, 1.5vw, 1.2rem);">
                     <strong>Referensi Penjelasan:</strong><br>
@@ -438,7 +439,7 @@ with st.expander("Referensi Penjelasan"):
             </div>
             """, unsafe_allow_html=True)
 
-with st.expander("Sumber Gambar"):
+with st.expander("📷 Sumber Gambar"):
     st.markdown("""
             <div style="font-size: clamp(0.9rem, 1.5vw, 1.2rem);">
                     <strong>Sumber Gambar:</strong><br>
