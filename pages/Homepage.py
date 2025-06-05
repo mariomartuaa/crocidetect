@@ -421,7 +421,7 @@ with cols[3]:
 
 st.markdown("""<hr style="background-color: black; margin-left:5rem; margin-right:5rem;">""",unsafe_allow_html=True)
 st.markdown("""
-        <div style="padding-left: 5rem; padding-right: 5rem; font-size: clamp(0.9rem, 1.5vw, 1.2rem);">
+        <div style="padding-left: 5rem; padding-right: 5rem; padding-bottom: 2rem; font-size: clamp(0.9rem, 1.5vw, 1.2rem);">
                 <strong>Referensi Penjelasan:</strong><br>
                 📚 Rany Badjo et al. (2015). SERANGAN HAMA ULAT KROP (Crocidolomia pavonana F.) PADA TANAMAN KUBIS (Brassica oleracea var. capitata L.) DI KELURAHAN KAKASKASEN II, KECAMATAN TOMOHON UTARA, KOTA TOMOHON. Vol. 6 No. 14 (2015). DOI: https://doi.org/10.35791/cocos.v6i14.8755<br>
                 📚 Frangky J. Paat dan Jantje Pelealu. (2021). MORFOLOGI DAN PERILAKU HAMA Crocidolomia pavonana PADA TANAMAN KUBIS. Vol. 12 No. 4 (2020): EDISI OKTOBER-DESEMBER 2020. DOI: https://doi.org/10.35791/cocos.v1i1.31819<br>
