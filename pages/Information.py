@@ -147,10 +147,26 @@ with cols[3]:
 
 st.markdown("""<hr style="background-color: black;">""",unsafe_allow_html=True)
 st.markdown("""
-        <div style="padding-bottom: 5rem; font-size: clamp(0.9rem, 1.5vw, 1.2rem);">
-                Penjelasan Berdasarkan Penelitian:<br>
+        <div style="padding-bottom: 2rem; font-size: clamp(0.9rem, 1.5vw, 1.2rem);">
+                <strong>Referensi Penjelasan:</strong><br>
                 📚 Rany Badjo et al. (2015). SERANGAN HAMA ULAT KROP (Crocidolomia pavonana F.) PADA TANAMAN KUBIS (Brassica oleracea var. capitata L.) DI KELURAHAN KAKASKASEN II, KECAMATAN TOMOHON UTARA, KOTA TOMOHON. Vol. 6 No. 14 (2015). DOI: https://doi.org/10.35791/cocos.v6i14.8755<br>
                 📚 Frangky J. Paat dan Jantje Pelealu. (2021). MORFOLOGI DAN PERILAKU HAMA Crocidolomia pavonana PADA TANAMAN KUBIS. Vol. 12 No. 4 (2020): EDISI OKTOBER-DESEMBER 2020. DOI: https://doi.org/10.35791/cocos.v1i1.31819<br>
+                📚 Setiawati, Wiwin et al. (2008). Tumbuhan Bahan Pestisida Nabati dan Cara Pembuatannya untuk Pengendalian Organisme Pengganggu Tumbuhan (OPT). Balai Penelitian Tanaman Sayuran. Sumber: https://repository.pertanian.go.id/handle/123456789/8741<br>
+                📚 Wikipedia. (n.d.). Instar. Wikipedia bahasa Indonesia. Diakses pada 4 Juni 2025, dari https://id.wikipedia.org/wiki/Instar<br>
                 📚 Mirza Devara. (2017). PERILAKU KAWIN NGENGAT Crocidolomia pavonana F. UT-Faculty of Mathematics and Natural Sciences. Available at: https://repository.unej.ac.id/handle/123456789/79509
+        </div>
+        """, unsafe_allow_html=True)
+
+st.markdown("""
+        <div style="padding-bottom: 5rem; font-size: clamp(0.9rem, 1.5vw, 1.2rem);">
+                <strong>Sumber Gambar:</strong><br>
+                📷 <strong>Crocidolomia Pavonana:</strong> https://en.wikipedia.org/wiki/Crocidolomia_pavonana<br>
+                📷 <strong>Kubis:</strong> https://www.financialexpress.com/life/5-must-have-vegetables-that-must-have-this-winter-know-all-about-their-benefits-and-side-effects-3321427/<br>
+                📷 <strong>Sawi:</strong> https://akcdn.detik.net.id/visual/2020/08/06/ilustrasi-tanaman-pakcoy_43.jpeg?w=720&q=90<br>
+                📷 <strong>Brokoli:</strong> https://img.lovepik.com/bg/20240128/broccoli-plants-are-growing-in-the-dirt-field_3115265_wh300.jpg<br>
+                📷 <strong>Lobak:</strong> https://images.genpi.co/uploads/banten/arsip/normal/2021/11/08/lobak-putih-yang-mempunyai-khasiat-luar-biasa-untuk-mencegah-8pz7.jpg<br>
+                📷 <strong>Mindi:</strong> https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Starr_070302-4984_Melia_azedarach.jpg/1024px-Starr_070302-4984_Melia_azedarach.jpg<br>
+                📷 <strong>Pacar Cina:</strong> https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/p2/28/2024/10/22/Screenshot_274-2586125066.jpg<br>
+                📷 <strong>Tahapan Instar:</strong> Risnawati, Rodiah et al. (2025). An optimized transfer learning-based approach for Crocidolomia pavonana larvae classification. IAES International Journal of Artificial Intellignce (IJ-AI): Vol. 14, No. 33. DOI: 10.11591/ijai.v14.i3.pp2270-2281 
         </div>
         """, unsafe_allow_html=True)
