@@ -423,7 +423,7 @@ st.markdown("""<hr style="background-color: black; margin-left:5rem; margin-righ
 
 with st.expander("Referensi Penjelasan"):
     st.markdown("""
-            <div style="padding-left: 5rem; padding-right: 5rem; padding-bottom: 2rem; font-size: clamp(0.9rem, 1.5vw, 1.2rem);">
+            <div style="font-size: clamp(0.9rem, 1.5vw, 1.2rem);">
                     <strong>Referensi Penjelasan:</strong><br>
                     📚 Rany Badjo et al. (2015). SERANGAN HAMA ULAT KROP (Crocidolomia pavonana F.) PADA TANAMAN KUBIS (Brassica oleracea var. capitata L.) DI KELURAHAN KAKASKASEN II, KECAMATAN TOMOHON UTARA, KOTA TOMOHON. Vol. 6 No. 14 (2015). DOI: https://doi.org/10.35791/cocos.v6i14.8755<br>
                     📚 Frangky J. Paat dan Jantje Pelealu. (2021). MORFOLOGI DAN PERILAKU HAMA Crocidolomia pavonana PADA TANAMAN KUBIS. Vol. 12 No. 4 (2020): EDISI OKTOBER-DESEMBER 2020. DOI: https://doi.org/10.35791/cocos.v1i1.31819<br>
@@ -435,7 +435,7 @@ with st.expander("Referensi Penjelasan"):
 
 with st.expander("Sumber Gambar"):
     st.markdown("""
-            <div style="padding-left: 5rem; padding-right: 5rem; padding-bottom: 5rem; font-size: clamp(0.9rem, 1.5vw, 1.2rem);">
+            <div style="font-size: clamp(0.9rem, 1.5vw, 1.2rem);">
                     <strong>Sumber Gambar:</strong><br>
                     📷 <strong>Crocidolomia Pavonana:</strong> https://en.wikipedia.org/wiki/Crocidolomia_pavonana<br>
                     📷 <strong>Kubis:</strong> https://www.financialexpress.com/life/5-must-have-vegetables-that-must-have-this-winter-know-all-about-their-benefits-and-side-effects-3321427/<br>
