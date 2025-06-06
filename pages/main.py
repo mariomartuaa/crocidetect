@@ -207,7 +207,7 @@ with margin_col2:
                 user_id=user_id,
                 original_image=original_img_bytes,
                 gradcam_image=gradcam_img_bytes,
-                predicted_class=pred_class,
+                predicted_class=predicted_class_inception,
                 confidence_table=confidence_json
             )
             
