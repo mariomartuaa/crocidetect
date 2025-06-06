@@ -10,7 +10,7 @@ import os
 import gdown
 import cv2
 from io import BytesIO
-from pages.db import init_db, insert_prediction, user_id
+from pages.db import init_db, insert_prediction
 import uuid
 
 @st.cache_resource
@@ -28,6 +28,19 @@ loading_model.success("✅ Berhasil Mengload Model")
 loading_model.empty()
 
 init_db()
+
+cookies = EncryptedCookieManager(
+prefix="crocidetect_",
+password=st.secrets["COOKIE_SECRET"])
+
+if not cookies.ready():
+    st.stop()
+
+user_id = cookies.get("user_id")
+if user_id is None:
+    user_id = str(uuid.uuid4())
+    cookies["user_id"] = user_id
+    cookies.save()
 
 # Preprocessing function
 def preprocess_image_inception(image: Image.Image):
