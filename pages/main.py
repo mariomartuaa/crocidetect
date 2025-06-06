@@ -193,6 +193,7 @@ with margin_col2:
 
             # Tampilkan Grad-CAM
             st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Grad-CAM Visualisasi</h1>', unsafe_allow_html=True)
+            st.image(superimposed_img, caption="Grad-CAM InceptionV3", use_column_width=True)
 
             # Simpan ke DB
             original_img_bytes = BytesIO()
@@ -209,8 +210,7 @@ with margin_col2:
                 predicted_class=pred_class,
                 confidence_table=confidence_json
             )
-
-            st.image(superimposed_img, caption="Grad-CAM InceptionV3", use_column_width=True)
+            
             gradcam_status.success("✅ Grad-CAM berhasil dibuat dan data disimpan!")
 
 with margin_col3:
