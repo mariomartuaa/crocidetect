@@ -181,39 +181,39 @@ with margin_col2:
             
             gradcam_status_placeholder.success("✅ Grad-CAM berhasil dibuat dan data disimpan!")
         
-        if st.button("Simpan Hasil"):
-
-            init_db()
-            # Init cookie manager
-            cookies = EncryptedCookieManager(
-                prefix="crocidetect_",
-                password=st.secrets["COOKIE_SECRET"])
-            
-            if not cookies.ready():
-                st.stop()
-            
-            # Dapatkan user_id dari cookie, kalau belum ada buat baru dan simpan ke cookie
-            user_id = cookies.get("user_id")
-            if user_id is None:
-                user_id = str(uuid.uuid4())
-                cookies["user_id"] = user_id
-                cookies.save()
+            if st.button("Simpan Hasil"):
     
-            # Simpan ke DB
-            original_img_bytes = BytesIO()
-            image.save(original_img_bytes, format='PNG')
-            original_img_bytes = original_img_bytes.getvalue()
-
-            gradcam_img_bytes = cv2.imencode('.png', superimposed_img_inception)[1].tobytes()
-            confidence_json = df_confidence.to_json(orient="records")
-
-            insert_prediction(
-                user_id=user_id,
-                original_image=original_img_bytes,
-                gradcam_image=gradcam_img_bytes,
-                predicted_class=predicted_class_inception,
-                confidence_table=confidence_json
-            )
+                init_db()
+                # Init cookie manager
+                cookies = EncryptedCookieManager(
+                    prefix="crocidetect_",
+                    password=st.secrets["COOKIE_SECRET"])
+                
+                if not cookies.ready():
+                    st.stop()
+                
+                # Dapatkan user_id dari cookie, kalau belum ada buat baru dan simpan ke cookie
+                user_id = cookies.get("user_id")
+                if user_id is None:
+                    user_id = str(uuid.uuid4())
+                    cookies["user_id"] = user_id
+                    cookies.save()
+        
+                # Simpan ke DB
+                original_img_bytes = BytesIO()
+                image.save(original_img_bytes, format='PNG')
+                original_img_bytes = original_img_bytes.getvalue()
+    
+                gradcam_img_bytes = cv2.imencode('.png', superimposed_img_inception)[1].tobytes()
+                confidence_json = df_confidence.to_json(orient="records")
+    
+                insert_prediction(
+                    user_id=user_id,
+                    original_image=original_img_bytes,
+                    gradcam_image=gradcam_img_bytes,
+                    predicted_class=predicted_class_inception,
+                    confidence_table=confidence_json
+                )
 
 with margin_col3:
     st.write("")
