@@ -5,6 +5,8 @@ import pandas as pd
 from PIL import Image
 import io
 
+user_id = cookies["user_id"]
+
 margin_col1, margin_col2, margin_col3 = st.columns([1, 3, 1])
 
 with margin_col1:
