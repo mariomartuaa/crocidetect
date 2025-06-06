@@ -1,6 +1,19 @@
 import sqlite3
 import os
 
+cookies = EncryptedCookieManager(
+prefix="crocidetect_",
+password=st.secrets["COOKIE_SECRET"])
+
+if not cookies.ready():
+    st.stop()
+
+user_id = cookies.get("user_id")
+if user_id is None:
+    user_id = str(uuid.uuid4())
+    cookies["user_id"] = user_id
+    cookies.save()
+
 DB_PATH = "data/predictions.db"
 
 def init_db():
