@@ -12,7 +12,6 @@ import cv2
 from io import BytesIO
 from pages.db import init_db, insert_prediction
 import uuid
-from pages.Homepage import user_id
 
 @st.cache_resource
 def load_inception_model():
