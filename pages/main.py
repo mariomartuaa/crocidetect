@@ -211,7 +211,7 @@ with margin_col2:
                 confidence_table=confidence_json
             )
             
-            gradcam_status.success("✅ Grad-CAM berhasil dibuat dan data disimpan!")
+            gradcam_status_placeholder.success("✅ Grad-CAM berhasil dibuat dan data disimpan!")
 
 with margin_col3:
     st.write("")
