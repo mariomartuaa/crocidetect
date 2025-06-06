@@ -4,7 +4,6 @@ from pages.db import get_predictions_by_user, delete_prediction
 import pandas as pd
 from PIL import Image
 import io
-from pages.db import user_id
 
 cookies = EncryptedCookieManager(
     prefix="crocidetect_",
