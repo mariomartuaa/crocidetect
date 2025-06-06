@@ -153,8 +153,6 @@ with margin_col2:
         
         # Tombol klasifikasi
         if st.button("Klasifikasi Gambar"):
-            status_placeholder = st.empty()
-        
             class_names = ['Instar 1', 'Instar 2', 'Instar 3', 'Instar 4']
         
             preprocessed_inception = preprocess_image_inception(image)
@@ -166,8 +164,6 @@ with margin_col2:
                 'Tahap Instar': class_names,
                 'Akurasi (%)': prediction_inception[0] * 100
             })
-        
-            gradcam_status_placeholder = st.empty()
             
             heatmap_inception = make_gradcam_heatmap(preprocessed_inception, inception_model, "mixed10")
             superimposed_img_inception = superimpose_heatmap(image, heatmap_inception)
@@ -197,7 +193,8 @@ with margin_col2:
 
         # Tampilkan hasil klasifikasi jika sudah dilakukan
         if st.session_state.get("prediction_done", False):
-            status_placeholder.info("⏳ Memproses dan memprediksi gambar...")
+            st.session_state.status_placeholder = st.empty()
+            st.session_state.status_placeholder.info("⏳ Memproses dan memprediksi gambar...")
             hasil_col1, hasil_col2 = st.columns(2)
             with hasil_col1:
                 st.markdown(f"""
@@ -210,12 +207,13 @@ with margin_col2:
             
             with hasil_col2:
                 st.dataframe(st.session_state.conf_table.style.format({'Akurasi (%)': '{:.2f}'}))
-            status_placeholder.success("✅ Klasifikasi selesai!")
+            st.session_state.status_placeholder.success("✅ Klasifikasi selesai!")
 
-            gradcam_status_placeholder.info("⏳ Membuat Grad-CAM visualisasi...")
+            st.session_state.gradcam_status_placeholder = st.empty()
+            st.session_state.gradcam_status_placeholder.info("⏳ Membuat Grad-CAM visualisasi...")
             st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Grad-CAM Visualisasi</h1>', unsafe_allow_html=True)
             st.image(st.session_state.gradcam_image, caption="Grad-CAM InceptionV3", use_column_width=True)
-            gradcam_status_placeholder.success("✅ Grad-CAM berhasil dibuat!")
+            st.session_state.gradcam_status_placeholder.success("✅ Grad-CAM berhasil dibuat!")
 
 
 with margin_col3:
