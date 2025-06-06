@@ -193,6 +193,8 @@ with margin_col2:
             image.save(original_img_bytes, format='PNG')
             original_img_bytes = original_img_bytes.getvalue()
 
+            # Konversi dari BGR (OpenCV) ke RGB (PIL)
+            superimposed_img_inception = cv2.cvtColor(superimposed_img_inception, cv2.COLOR_BGR2RGB)
             gradcam_img_bytes = cv2.imencode('.png', superimposed_img_inception)[1].tobytes()
             confidence_json = df_confidence.to_json(orient="records")
 
