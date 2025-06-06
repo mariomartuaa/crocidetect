@@ -46,28 +46,41 @@ loading_model.empty()
 # Preprocessing function
 def preprocess_image_inception(image: Image.Image):
     image = image.resize((512, 512))
-    image_array = np.array(image.convert("RGB"))  # Pastikan 3 channel langsung
+    image_array = np.array(image)
+    if image_array.shape[-1] == 4:
+        image_array = image_array[:, :, :3]
     image_array = np.expand_dims(image_array, axis=0)
-    return inception_preprocess(image_array)
+    image_array = inception_preprocess(image_array)
+    return image_array
 
 
 def make_gradcam_heatmap(img_array, model, last_conv_layer_name, pred_index=None):
     grad_model = tf.keras.models.Model(
-        model.inputs, [model.get_layer(last_conv_layer_name).output, model.output]
+        model.inputs, 
+        [model.get_layer(last_conv_layer_name).output, model.output]
     )
+
 
     with tf.GradientTape() as tape:
         conv_outputs, predictions = grad_model(img_array)
-        pred_index = pred_index or tf.argmax(predictions[0])
+        if pred_index is None:
+            pred_index = tf.argmax(predictions[0])
         class_channel = predictions[:, pred_index]
 
+    # Gradients terhadap output feature map
     grads = tape.gradient(class_channel, conv_outputs)
+
     pooled_grads = tf.reduce_mean(grads, axis=(0, 1, 2))
+
     conv_outputs = conv_outputs[0]
 
-    heatmap = tf.squeeze(conv_outputs @ pooled_grads[..., tf.newaxis])
+    heatmap = conv_outputs @ pooled_grads[..., tf.newaxis]
+    heatmap = tf.squeeze(heatmap)
+
     heatmap = tf.maximum(heatmap, 0) / tf.math.reduce_max(heatmap)
-    return heatmap.numpy()
+    heatmap = heatmap.numpy()
+
+    return heatmap
 
 
 def superimpose_heatmap(img, heatmap, alpha=0.4):
