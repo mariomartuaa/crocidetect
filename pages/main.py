@@ -10,7 +10,7 @@ import os
 import gdown
 import cv2
 from io import BytesIO
-from pages.db import init_db, insert_prediction
+from pages.db import init_db, insert_prediction, user_id
 import uuid
 
 @st.cache_resource
