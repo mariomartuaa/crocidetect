@@ -1,7 +1,7 @@
 import sqlite3
 import os
 
-db_path = os.path.join("data", "crocidetect.db")
+db_path = os.path.join("data", "predictions.db")
 
 def init_db():
     conn = sqlite3.connect(db_path)
