@@ -168,11 +168,6 @@ with margin_col2:
                     
             gradcam_status_placeholder = st.empty()
             gradcam_status_placeholder.info("⏳ Membuat Grad-CAM visualisasi...")
-            
-            # Grad-CAM InceptionV3
-            heatmap_inception = make_gradcam_heatmap(preprocessed_inception, inception_model, "mixed10")
-            superimposed_img_inception = superimpose_heatmap(image, heatmap_inception)
-
 
             # Grad-CAM InceptionV3
             heatmap_inception = make_gradcam_heatmap(preprocessed_inception, inception_model, "mixed10")
@@ -193,7 +188,7 @@ with margin_col2:
                 user_id=user_id,
                 original_image=original_img_bytes,
                 gradcam_image=gradcam_img_bytes,
-                predicted_class=prediction_inception,
+                predicted_class=predicted_class_inception,
                 confidence_table=confidence_json
             )
 
