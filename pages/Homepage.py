@@ -1,5 +1,7 @@
 import streamlit as st
 from PIL import Image
+from streamlit_cookies_manager import EncryptedCookieManager
+import uuid
 
 st.markdown("""
 <style>
@@ -450,6 +452,7 @@ st.markdown("""
 cookies = EncryptedCookieManager(
     prefix="crocidetect_",
     password=st.secrets["COOKIE_SECRET"])
+
 if not cookies.ready():
     st.stop()
 
