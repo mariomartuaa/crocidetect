@@ -1,15 +1,33 @@
 import streamlit as st
+from streamlit_cookies_manager import EncryptedCookieManager
 from PIL import Image
 import pandas as pd
 import numpy as np
 import tensorflow as tf
 import matplotlib.cm as cm
-from tensorflow.keras.applications.convnext import preprocess_input as convnext_preprocess
 from tensorflow.keras.applications.inception_v3 import preprocess_input as inception_preprocess
 import os
 import gdown
 import cv2
 from io import BytesIO
+from pages.db import init_db, insert_prediction
+import uuid
+
+init_db()
+# Init cookie manager
+cookies = EncryptedCookieManager(
+    prefix="crocidetect_",
+    password=st.secrets["COOKIE_SECRET"])
+
+if not cookies.ready():
+    st.stop()
+
+# Dapatkan user_id dari cookie, kalau belum ada buat baru dan simpan ke cookie
+user_id = cookies.get("user_id")
+if user_id is None:
+    user_id = str(uuid.uuid4())
+    cookies["user_id"] = user_id
+    cookies.save()
 
 @st.cache_resource
 def load_inception_model():
@@ -28,40 +46,29 @@ loading_model.empty()
 # Preprocessing function
 def preprocess_image_inception(image: Image.Image):
     image = image.resize((512, 512))
-    image_array = np.array(image)
-    if image_array.shape[-1] == 4:
-        image_array = image_array[:, :, :3]
+    image_array = np.array(image.convert("RGB"))  # Pastikan 3 channel langsung
     image_array = np.expand_dims(image_array, axis=0)
-    image_array = inception_preprocess(image_array)
-    return image_array
+    return inception_preprocess(image_array)
+
 
 def make_gradcam_heatmap(img_array, model, last_conv_layer_name, pred_index=None):
     grad_model = tf.keras.models.Model(
-        model.inputs, 
-        [model.get_layer(last_conv_layer_name).output, model.output]
+        model.inputs, [model.get_layer(last_conv_layer_name).output, model.output]
     )
-
 
     with tf.GradientTape() as tape:
         conv_outputs, predictions = grad_model(img_array)
-        if pred_index is None:
-            pred_index = tf.argmax(predictions[0])
+        pred_index = pred_index or tf.argmax(predictions[0])
         class_channel = predictions[:, pred_index]
 
-    # Gradients terhadap output feature map
     grads = tape.gradient(class_channel, conv_outputs)
-
     pooled_grads = tf.reduce_mean(grads, axis=(0, 1, 2))
-
     conv_outputs = conv_outputs[0]
 
-    heatmap = conv_outputs @ pooled_grads[..., tf.newaxis]
-    heatmap = tf.squeeze(heatmap)
-
+    heatmap = tf.squeeze(conv_outputs @ pooled_grads[..., tf.newaxis])
     heatmap = tf.maximum(heatmap, 0) / tf.math.reduce_max(heatmap)
-    heatmap = heatmap.numpy()
+    return heatmap.numpy()
 
-    return heatmap
 
 def superimpose_heatmap(img, heatmap, alpha=0.4):
     img = img.convert("RGB")
@@ -133,81 +140,59 @@ with margin_col2:
             status_placeholder = st.empty()
             status_placeholder.info("⏳ Memproses dan memprediksi gambar...")
 
-            # Mapping kelas
             class_names = ['Instar 1', 'Instar 2', 'Instar 3', 'Instar 4']
 
-            # Prediksi InceptionV3
-            preprocessed_inception = preprocess_image_inception(image)
-            prediction_inception = inception_model.predict(preprocessed_inception)
-            predicted_class_inception = class_names[np.argmax(prediction_inception)]
-            confidence_inception = np.max(prediction_inception) * 100
+            preprocessed = preprocess_image_inception(image)
+            prediction = inception_model.predict(preprocessed)
+            pred_class = class_names[np.argmax(prediction)]
+            confidence = np.max(prediction) * 100
 
             status_placeholder.success("✅ Klasifikasi selesai!")
-            hasil_col1, hasil_col2 = st.columns(2)
-            with hasil_col1:
+
+            col1, col2 = st.columns(2)
+            with col1:
                 st.markdown(f"""
                     <div class="card">
-                        <strong>Model: </strong>InceptionV3<br>
-                        <strong>Prediksi: </strong>{predicted_class_inception}<br>
-                        <strong>Akurasi: </strong>{confidence_inception:.2f}%<br>
+                        <strong>Model:</strong> InceptionV3<br>
+                        <strong>Prediksi:</strong> {pred_class}<br>
+                        <strong>Akurasi:</strong> {confidence:.2f}%<br>
                     </div>
-                                    """, unsafe_allow_html=True)
-            
-            with hasil_col2:
-                # Data untuk visualisasi
-                df_confidence = pd.DataFrame({
-                    'Tahap Instar': class_names,
-                    'Akurasi (%)': prediction_inception[0] * 100
-                })
-                st.dataframe(df_confidence.style.format({'Akurasi (%)': '{:.2f}'}))
-                    
-            gradcam_status_placeholder = st.empty()
-            gradcam_status_placeholder.info("⏳ Membuat Grad-CAM visualisasi...")
-            
-            # Grad-CAM InceptionV3
-            heatmap_inception = make_gradcam_heatmap(preprocessed_inception, inception_model, "mixed10")
-            superimposed_img_inception = superimpose_heatmap(image, heatmap_inception)
+                """, unsafe_allow_html=True)
 
-
-            # Grad-CAM InceptionV3
-            heatmap_inception = make_gradcam_heatmap(preprocessed_inception, inception_model, "mixed10")
-            superimposed_img_inception = superimpose_heatmap(image, heatmap_inception)
-
-            # Tampilkan Grad-CAM
-            st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Grad-CAM Visualisasi</h1>', unsafe_allow_html=True)
-            gradcam_col1, gradcam_col2, gradcam_col3 = st.columns(3)
-            
-            # Simpan ke session state (history)
-            if "history" not in st.session_state:
-                st.session_state.history = []
-
-            # Konversi gambar asli dan hasil gradcam jadi bentuk yang bisa disimpan
-            from io import BytesIO
-
-            def pil_to_bytes(img):
-                buf = BytesIO()
-                img.save(buf, format="PNG")
-                return buf.getvalue()
-
-            from PIL import Image
-
-            # Konversi hasil superimposed jadi PIL Image dulu
-            result_pil = Image.fromarray(superimposed_img_inception)
-
-            st.session_state.history.append({
-                "original": image.copy(),
-                "heatmap": Image.fromarray(superimposed_img_inception),
-                "prediction": predicted_class_inception,
-                "confidence": confidence_inception,
-                "df_confidence": pd.DataFrame({
-                    'Tahap Instar': class_names,
-                    'Akurasi (%)': prediction_inception[0] * 100
-                })
+            df_confidence = pd.DataFrame({
+                'Tahap Instar': class_names,
+                'Akurasi (%)': prediction[0] * 100
             })
 
-            
-            st.image(superimposed_img_inception, caption="Grad-CAM InceptionV3", use_column_width=True)
-            gradcam_status_placeholder.success("✅ Grad-CAM berhasil dibuat!")
+            with col2:
+                st.dataframe(df_confidence.style.format({'Akurasi (%)': '{:.2f}'}))
+
+            gradcam_status = st.empty()
+            gradcam_status.info("⏳ Membuat Grad-CAM visualisasi...")
+
+            heatmap = make_gradcam_heatmap(preprocessed, inception_model, "mixed10")
+            superimposed_img = superimpose_heatmap(image, heatmap)
+
+            st.markdown('<h2 style="text-align:center;">Grad-CAM Visualisasi</h2>', unsafe_allow_html=True)
+            st.image(superimposed_img, caption="Grad-CAM InceptionV3", use_column_width=True)
+
+            # Simpan ke DB
+            original_img_bytes = BytesIO()
+            image.save(original_img_bytes, format='PNG')
+            original_img_bytes = original_img_bytes.getvalue()
+
+            gradcam_img_bytes = cv2.imencode('.png', superimposed_img)[1].tobytes()
+            confidence_json = df_confidence.to_json(orient="records")
+
+            insert_prediction(
+                user_id=user_id,
+                original_image=original_img_bytes,
+                gradcam_image=gradcam_img_bytes,
+                predicted_class=pred_class,
+                confidence_table=confidence_json
+            )
+
+            gradcam_status.success("✅ Grad-CAM berhasil dibuat dan data disimpan!")
 
 with margin_col3:
     st.write("")
