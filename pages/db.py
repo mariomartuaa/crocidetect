@@ -1,10 +1,10 @@
 import sqlite3
 import os
 
-db_path = os.path.join("data", "predictions.db")
+DB_PATH = "data/predictions.db"
 
 def init_db():
-    conn = sqlite3.connect(db_path)
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("""
     CREATE TABLE IF NOT EXISTS predictions (
@@ -21,7 +21,7 @@ def init_db():
     conn.close()
 
 def insert_prediction(user_id, original_image, gradcam_image, predicted_class, confidence_table):
-    conn = sqlite3.connect(db_path)
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("""
         INSERT INTO predictions (user_id, original_image, gradcam_image, predicted_class, confidence_table)
@@ -31,7 +31,7 @@ def insert_prediction(user_id, original_image, gradcam_image, predicted_class, c
     conn.close()
 
 def get_predictions_by_user(user_id):
-    conn = sqlite3.connect(db_path)
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("""
         SELECT id, timestamp, original_image, gradcam_image, predicted_class, confidence_table
@@ -42,9 +42,8 @@ def get_predictions_by_user(user_id):
     return rows
 
 def delete_prediction(prediction_id):
-    conn = sqlite3.connect(db_path)
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("DELETE FROM predictions WHERE id = ?", (prediction_id,))
     conn.commit()
     conn.close()
-
