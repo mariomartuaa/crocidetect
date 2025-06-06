@@ -146,11 +146,11 @@ with margin_col2:
     if uploaded_file:
         image = Image.open(uploaded_file)
         st.image(image, use_column_width=True)
-        st.session_state.prediction_done = False
 
         # Inisialisasi session_state jika belum ada
-        if "prediction_done" not in st.session_state:
+        if st.session_state.get("last_uploaded_file_name") != uploaded_file.name:
             st.session_state.prediction_done = False
+            st.session_state.last_uploaded_file_name = uploaded_file.name
         
         # Tombol klasifikasi
         if st.button("Klasifikasi Gambar"):
