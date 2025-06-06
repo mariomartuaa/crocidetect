@@ -187,53 +187,29 @@ with margin_col2:
             st.session_state["confidence_table"] = df_confidence
 
             
-        if (
-            "original_image" in st.session_state and
-            "gradcam_image" in st.session_state and
-            "predicted_class" in st.session_state and
-            "confidence_table" in st.session_state
-        ):
             if st.button("Simpan Hasil"):
-                init_db()
-        
-                cookies = EncryptedCookieManager(
-                    prefix="crocidetect_",
-                    password=st.secrets["COOKIE_SECRET"])
-                if not cookies.ready():
-                    st.stop()
-        
-                user_id = cookies.get("user_id")
-                if user_id is None:
-                    user_id = str(uuid.uuid4())
-                    cookies["user_id"] = user_id
-                    cookies.save()
-        
-                # Ambil dari session_state
-                image = st.session_state["original_image"]
-                gradcam = st.session_state["gradcam_image"]
-                predicted_class = st.session_state["predicted_class"]
-                df_confidence = st.session_state["confidence_table"]
-        
-                original_img_bytes = BytesIO()
-                image.save(original_img_bytes, format='PNG')
-                original_img_bytes = original_img_bytes.getvalue()
-        
-                gradcam_img_bytes = cv2.imencode('.png', gradcam)[1].tobytes()
-                confidence_json = df_confidence.to_json(orient="records")
-        
-                insert_prediction(
-                    user_id=user_id,
-                    original_image=original_img_bytes,
-                    gradcam_image=gradcam_img_bytes,
-                    predicted_class=predicted_class,
-                    confidence_table=confidence_json
-                )
-
-                for key in ["original_image", "gradcam_image", "predicted_class", "confidence_table"]:
-                    if key in st.session_state:
-                        del st.session_state[key]
-
-                st.success("✅ Hasil berhasil disimpan!")
+                    init_db()
+                
+                    # Ambil dari session_state
+                    image = st.session_state["original_image"]
+                    gradcam = st.session_state["gradcam_image"]
+                    predicted_class = st.session_state["predicted_class"]
+                    df_confidence = st.session_state["confidence_table"]
+            
+                    original_img_bytes = BytesIO()
+                    image.save(original_img_bytes, format='PNG')
+                    original_img_bytes = original_img_bytes.getvalue()
+            
+                    gradcam_img_bytes = cv2.imencode('.png', gradcam)[1].tobytes()
+                    confidence_json = df_confidence.to_json(orient="records")
+            
+                    insert_prediction(
+                        user_id=user_id,
+                        original_image=original_img_bytes,
+                        gradcam_image=gradcam_img_bytes,
+                        predicted_class=predicted_class,
+                        confidence_table=confidence_json
+                    )
 
 with margin_col3:
     st.write("")
