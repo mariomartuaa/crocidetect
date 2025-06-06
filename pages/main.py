@@ -94,6 +94,14 @@ def superimpose_heatmap(img, heatmap, alpha=0.4):
     superimposed_img = cv2.addWeighted(img, 1 - alpha, heatmap, alpha, 0)
     return superimposed_img
 
+def reset_prediction_state():
+    keys_to_remove = [
+        "uploaded_image", "preprocessed", "prediction", "predicted_class",
+        "confidence", "heatmap", "df_confidence", "superimposed"
+    ]
+    for key in keys_to_remove:
+        st.session_state.pop(key, None)
+
 st.markdown("""
 <div class="hero-section">
     <img src="https://i.imgur.com/6FYuwbg.png" class="logo-img2">
@@ -144,69 +152,72 @@ with margin_col2:
     uploaded_file = st.file_uploader(label ='Unggah gambar', type=['jpg', 'jpeg', 'png'])
     if uploaded_file:
         image = Image.open(uploaded_file)
+        st.session_state['uploaded_image'] = image
+        reset_prediction_state()
         st.image(image, use_column_width=True)
 
         if st.button("Klasifikasi Gambar"):
+            image = st.session_state['uploaded_image']
             status_placeholder = st.empty()
             status_placeholder.info("⏳ Memproses dan memprediksi gambar...")
-
-            # Mapping kelas
+        
             class_names = ['Instar 1', 'Instar 2', 'Instar 3', 'Instar 4']
-
-            # Prediksi InceptionV3
-            preprocessed_inception = preprocess_image_inception(image)
-            prediction_inception = inception_model.predict(preprocessed_inception)
-            predicted_class_inception = class_names[np.argmax(prediction_inception)]
-            confidence_inception = np.max(prediction_inception) * 100
-
-            status_placeholder.success("✅ Klasifikasi selesai!")
-            hasil_col1, hasil_col2 = st.columns(2)
-            with hasil_col1:
-                st.markdown(f"""
-                    <div class="card">
-                        <strong>Model: </strong>InceptionV3<br>
-                        <strong>Prediksi: </strong>{predicted_class_inception}<br>
-                        <strong>Akurasi: </strong>{confidence_inception:.2f}%<br>
-                    </div>
-                                    """, unsafe_allow_html=True)
-            
-            with hasil_col2:
-                # Data untuk visualisasi
-                df_confidence = pd.DataFrame({
-                    'Tahap Instar': class_names,
-                    'Akurasi (%)': prediction_inception[0] * 100
-                })
-                st.dataframe(df_confidence.style.format({'Akurasi (%)': '{:.2f}'}))
-                    
-            gradcam_status_placeholder = st.empty()
-            gradcam_status_placeholder.info("⏳ Membuat Grad-CAM visualisasi...")
-
-            # Grad-CAM InceptionV3
-            heatmap_inception = make_gradcam_heatmap(preprocessed_inception, inception_model, "mixed10")
-            superimposed_img_inception = superimpose_heatmap(image, heatmap_inception)
-
-            # Tampilkan Grad-CAM
-            st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Grad-CAM Visualisasi</h1>', unsafe_allow_html=True)
-            st.image(superimposed_img_inception, caption="Grad-CAM InceptionV3", use_column_width=True)
-    
+            preprocessed = preprocess_image_inception(image)
+            prediction = inception_model.predict(preprocessed)
+            predicted_class = class_names[np.argmax(prediction)]
+            confidence = np.max(prediction) * 100
+        
+            heatmap = make_gradcam_heatmap(preprocessed, inception_model, "mixed10")
+            superimposed = superimpose_heatmap(image, heatmap)
+        
+            df_confidence = pd.DataFrame({
+                'Tahap Instar': class_names,
+                'Akurasi (%)': prediction[0] * 100
+            })
+        
+            # Simpan semua ke session_state
+            st.session_state['preprocessed'] = preprocessed
+            st.session_state['prediction'] = prediction
+            st.session_state['predicted_class'] = predicted_class
+            st.session_state['confidence'] = confidence
+            st.session_state['heatmap'] = heatmap
+            st.session_state['df_confidence'] = df_confidence
+            st.session_state['superimposed'] = superimposed
+        
+            # Simpan ke database
             original_img_bytes = BytesIO()
             image.save(original_img_bytes, format='PNG')
             original_img_bytes = original_img_bytes.getvalue()
-
-            # Konversi dari BGR (OpenCV) ke RGB (PIL)
-            superimposed_img_inception = cv2.cvtColor(superimposed_img_inception, cv2.COLOR_BGR2RGB)
-            gradcam_img_bytes = cv2.imencode('.png', superimposed_img_inception)[1].tobytes()
+        
+            gradcam_img_bytes = cv2.imencode('.png', cv2.cvtColor(superimposed, cv2.COLOR_BGR2RGB))[1].tobytes()
             confidence_json = df_confidence.to_json(orient="records")
-
+        
             insert_prediction(
                 user_id=user_id,
                 original_image=original_img_bytes,
                 gradcam_image=gradcam_img_bytes,
-                predicted_class=predicted_class_inception,
+                predicted_class=predicted_class,
                 confidence_table=confidence_json
             )
+        
+            status_placeholder.success("✅ Klasifikasi selesai dan data disimpan!")
+        
+        if "predicted_class" in st.session_state:
+            st.markdown(f"""
+                <div class="card">
+                    <strong>Model: </strong>InceptionV3<br>
+                    <strong>Prediksi: </strong>{st.session_state['predicted_class']}<br>
+                    <strong>Akurasi: </strong>{st.session_state['confidence']:.2f}%<br>
+                </div>
+            """, unsafe_allow_html=True)
+        
+            st.dataframe(
+                st.session_state['df_confidence'].style.format({'Akurasi (%)': '{:.2f}'})
+            )
+        
+            st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Grad-CAM Visualisasi</h1>', unsafe_allow_html=True)
+            st.image(st.session_state['superimposed'], caption="Grad-CAM InceptionV3", use_column_width=True)
 
-            gradcam_status_placeholder.success("✅ Grad-CAM berhasil dibuat dan data disimpan!")
 
 with margin_col3:
     st.write("")
