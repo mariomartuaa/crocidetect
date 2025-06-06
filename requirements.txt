@@ -7,3 +7,4 @@ matplotlib
 opencv-python
 gdown
 opencv-python-headless
+streamlit-cookies-manager
