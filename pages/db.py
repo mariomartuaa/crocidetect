@@ -1,10 +1,10 @@
 import sqlite3
 import os
 
-DB_PATH = "/data/predictions.db"
+db_path = os.path.join("data", "crocidetect.db")
 
 def init_db():
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(db_path)
     c = conn.cursor()
     c.execute("""
     CREATE TABLE IF NOT EXISTS predictions (
