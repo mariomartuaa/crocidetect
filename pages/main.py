@@ -193,14 +193,14 @@ with margin_col2:
 
             # Tampilkan Grad-CAM
             st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Grad-CAM Visualisasi</h1>', unsafe_allow_html=True)
-            st.image(superimposed_img, caption="Grad-CAM InceptionV3", use_column_width=True)
+            st.image(superimposed_img_inception, caption="Grad-CAM InceptionV3", use_column_width=True)
 
             # Simpan ke DB
             original_img_bytes = BytesIO()
             image.save(original_img_bytes, format='PNG')
             original_img_bytes = original_img_bytes.getvalue()
 
-            gradcam_img_bytes = cv2.imencode('.png', superimposed_img)[1].tobytes()
+            gradcam_img_bytes = cv2.imencode('.png', superimposed_img_inception)[1].tobytes()
             confidence_json = df_confidence.to_json(orient="records")
 
             insert_prediction(
