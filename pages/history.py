@@ -18,42 +18,32 @@ if "user_id" not in cookies or cookies["user_id"] is None:
 
 user_id = cookies["user_id"]
 
-# Inisialisasi session state
-if "history_records" not in st.session_state:
-    st.session_state.history_records = get_predictions_by_user(user_id)
-
 margin_col1, margin_col2, margin_col3 = st.columns([1, 3, 1])
+
 with margin_col1:
     st.write("")
 
 with margin_col2:
     st.header("Riwayat Klasifikasi", divider="green")
 
-    if not st.session_state.history_records:
+    records = get_predictions_by_user(user_id)
+
+    if not records:
         st.info("Belum ada riwayat prediksi.")
     else:
-        # Buat key khusus untuk daftar yang ingin dihapus
-        if "deleted_ids" not in st.session_state:
-            st.session_state.deleted_ids = set()
-
-        # Tampilkan setiap record
-        for i, rec in enumerate(st.session_state.history_records):
+        for rec in records:
             rec_id, timestamp, orig_img_blob, gradcam_img_blob, pred_class, conf_json = rec
-
-            # Lewati record yang sudah dihapus
-            if rec_id in st.session_state.deleted_ids:
-                continue
 
             st.write(f"### Prediksi pada: {timestamp}")
 
-            # Gambar
+            # Gambar dalam 2 kolom
             img_col1, img_col2 = st.columns(2)
             with img_col1:
                 st.image(Image.open(io.BytesIO(orig_img_blob)), caption="Gambar Asli", use_column_width=True)
             with img_col2:
                 st.image(Image.open(io.BytesIO(gradcam_img_blob)), caption="Grad-CAM Visualisasi", use_column_width=True)
 
-            # Info prediksi
+            # Hasil prediksi dan tabel confidence dalam 2 kolom
             hasil_col1, hasil_col2 = st.columns(2)
             with hasil_col1:
                 st.markdown(f"""
@@ -66,12 +56,10 @@ with margin_col2:
             with hasil_col2:
                 df_conf = pd.read_json(io.StringIO(conf_json))
                 st.dataframe(df_conf.style.format({'Akurasi (%)': '{:.2f}'}))
-
-            # Tombol hapus
-            if st.button("🗑️ Hapus", key=f"del_{rec_id}"):
-                delete_prediction(rec_id)
-                st.session_state.deleted_ids.add(rec_id)
-                st.success(f"Berhasil menghapus prediksi {timestamp}")
+            
+            if st.button("Hapus", key=f"del_{rec_id}"):
+                    delete_prediction(rec_id)
+                    st.experimental_rerun()
 
             st.divider()
 
