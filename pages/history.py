@@ -1,48 +1,65 @@
 import streamlit as st
+from streamlit_cookies_manager import EncryptedCookieManager
+from pages.db import get_predictions_by_user, delete_prediction
+import pandas as pd
 from PIL import Image
-from io import BytesIO
+import io
+
+cookies = EncryptedCookieManager(
+    prefix="crocidetect_",
+    password=st.secrets["COOKIE_SECRET"])
+if not cookies.ready():
+    st.stop()
+
+if "user_id" not in cookies or cookies["user_id"] is None:
+    st.warning("User ID tidak ditemukan. Silakan lakukan prediksi dulu di halaman utama.")
+    st.stop()
+
+user_id = cookies["user_id"]
 
 margin_col1, margin_col2, margin_col3 = st.columns([1, 3, 1])
 
 with margin_col1:
     st.write("")
-    
+
 with margin_col2:
-    if "history" not in st.session_state:
-        st.session_state.history = []
-    else:
-        # Filter hanya item yang lengkap
-        st.session_state.history = [
-            h for h in st.session_state.history
-            if all(k in h for k in ["original", "heatmap", "prediction", "confidence", "df_confidence"])
-        ]
-    
     st.header("Riwayat Klasifikasi", divider="green")
 
-    if not st.session_state.history:
-        st.info("Belum ada riwayat klasifikasi pada sesi ini.")
+    records = get_predictions_by_user(user_id)
+
+    if not records:
+        st.info("Belum ada riwayat prediksi.")
     else:
-        for i, item in enumerate(reversed(st.session_state.history), 1):
-            st.write(f"Hasil #{len(st.session_state.history) - i + 1}")
+        for rec in records:
+            rec_id, timestamp, orig_img_blob, gradcam_img_blob, pred_class, conf_json = rec
+
+            st.write(f"### Prediksi pada: {timestamp}")
+
+            # Gambar dalam 2 kolom
             img_col1, img_col2 = st.columns(2)
             with img_col1:
-                st.image(item["original"], caption="Gambar Input", use_column_width=True)
+                st.image(Image.open(io.BytesIO(orig_img_blob)), caption="Gambar Asli", use_column_width=True)
             with img_col2:
-                st.image(item["heatmap"], caption="Grad-CAM", use_column_width=True)
-            
+                st.image(Image.open(io.BytesIO(gradcam_img_blob)), caption="Grad-CAM Visualisasi", use_column_width=True)
+
+            # Hasil prediksi dan tabel confidence dalam 2 kolom
             hasil_col1, hasil_col2 = st.columns(2)
             with hasil_col1:
                 st.markdown(f"""
                     <div class="card">
-                        <strong>Model: </strong>InceptionV3<br>
-                        <strong>Prediksi: </strong>{item['prediction']}<br>
-                        <strong>Akurasi: </strong>{item['confidence']:.2f}%<br>
+                        <strong>Model:</strong> InceptionV3<br>
+                        <strong>Prediksi:</strong> {pred_class}<br>
                     </div>
-                                    """, unsafe_allow_html=True)
-            
+                """, unsafe_allow_html=True)
+
+                if st.button("Hapus", key=f"del_{rec_id}"):
+                    delete_prediction(rec_id)
+
             with hasil_col2:
-                st.dataframe(item["df_confidence"].style.format({'Akurasi (%)': '{:.2f}'}))
+                df_conf = pd.read_json(conf_json)
+                st.dataframe(df_conf.style.format({'Akurasi (%)': '{:.2f}'}))
 
             st.divider()
+
 with margin_col3:
     st.write("")
