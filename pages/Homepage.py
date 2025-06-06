@@ -446,3 +446,15 @@ st.markdown("""
                 📷 <strong>Tahapan Instar:</strong> Risnawati, Rodiah et al. (2025). An optimized transfer learning-based approach for Crocidolomia pavonana larvae classification. IAES International Journal of Artificial Intellignce (IJ-AI): Vol. 14, No. 33. DOI: 10.11591/ijai.v14.i3.pp2270-2281 
         </div>
         """, unsafe_allow_html=True)
+
+cookies = EncryptedCookieManager(
+    prefix="crocidetect_",
+    password=st.secrets["COOKIE_SECRET"])
+if not cookies.ready():
+    st.stop()
+
+user_id = cookies.get("user_id")
+if user_id is None:
+    user_id = str(uuid.uuid4())
+    cookies["user_id"] = user_id
+    cookies.save()
