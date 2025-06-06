@@ -8,9 +8,16 @@ import uuid
 import json
 
 # Inisialisasi Firebase hanya sekali
+firebase_key_str = st.secrets["firebase_key"]
+
+# Parse string JSON jadi dict Python
+firebase_cred_dict = json.loads(firebase_key_str)
+
+# Inisialisasi credentials dari dict
+cred = credentials.Certificate(firebase_cred_dict)
+
+# Inisialisasi app Firebase sekali saja
 if not firebase_admin._apps:
-    firebase_config = st.secrets["firebase"]
-    cred = credentials.Certificate(firebase_config)
     firebase_admin.initialize_app(cred)
 
 db = firestore.client()
