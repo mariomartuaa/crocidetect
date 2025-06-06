@@ -13,6 +13,20 @@ from io import BytesIO
 from pages.db import init_db, insert_prediction
 import uuid
 
+@st.cache_resource
+def load_inception_model():
+    model_path = 'InceptionV32_model.keras'
+    if not os.path.exists(model_path):
+        url = 'https://drive.google.com/uc?id=1H5QA7p4j7wNtsdnzVbtE1l3deaBh_KAi'
+        gdown.download(url, model_path, quiet=False)
+    return tf.keras.models.load_model(model_path)
+    
+loading_model = st.empty()
+loading_model.info("⏳ Loading Model...")
+inception_model = load_inception_model()
+loading_model.success("✅ Berhasil Mengload Model")
+loading_model.empty()
+
 init_db()
 # Init cookie manager
 cookies = EncryptedCookieManager(
@@ -28,20 +42,6 @@ if user_id is None:
     user_id = str(uuid.uuid4())
     cookies["user_id"] = user_id
     cookies.save()
-
-@st.cache_resource
-def load_inception_model():
-    model_path = 'InceptionV32_model.keras'
-    if not os.path.exists(model_path):
-        url = 'https://drive.google.com/uc?id=1H5QA7p4j7wNtsdnzVbtE1l3deaBh_KAi'
-        gdown.download(url, model_path, quiet=False)
-    return tf.keras.models.load_model(model_path)
-    
-loading_model = st.empty()
-loading_model.info("⏳ Loading Model...")
-inception_model = load_inception_model()
-loading_model.success("✅ Berhasil Mengload Model")
-loading_model.empty()
 
 # Preprocessing function
 def preprocess_image_inception(image: Image.Image):
