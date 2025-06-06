@@ -59,7 +59,6 @@ with margin_col2:
             
             if st.button("Hapus", key=f"del_{rec_id}"):
                     delete_prediction(rec_id)
-                    st.experimental_rerun()
 
             st.divider()
 
