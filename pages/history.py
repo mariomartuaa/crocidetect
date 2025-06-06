@@ -7,7 +7,7 @@ import io
 
 cookies = EncryptedCookieManager(
     prefix="crocidetect_",
-    password=st.secrets(["COOKIE_SECRET"]),
+    password=st.secrets["COOKIE_SECRET"],
     key="cookies_history"
 )
 if not cookies.ready():
