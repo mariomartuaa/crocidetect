@@ -4,10 +4,12 @@ import datetime
 import base64
 import io
 import uuid
+import json
 
 # Inisialisasi Firebase hanya sekali
 if not firebase_admin._apps:
-    cred = credentials.Certificate("firebase_key.json")
+    firebase_config = st.secrets["firebase"]
+    cred = credentials.Certificate(firebase_config)
     firebase_admin.initialize_app(cred)
 
 db = firestore.client()
