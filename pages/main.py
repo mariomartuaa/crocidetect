@@ -114,54 +114,65 @@ with margin_col2:
 
     if uploaded_file:
         image = Image.open(uploaded_file)
+        st.session_state.image = image  # Simpan ke session state
         st.image(image, use_column_width=True)
 
+
         if st.button("Klasifikasi Gambar"):
-            status = st.empty()
-            status.info("⏳ Memproses dan memprediksi gambar...")
+            st.session_state.run_prediction = True
 
-            class_names = ['Instar 1', 'Instar 2', 'Instar 3', 'Instar 4']
-            preprocessed = preprocess_image_inception(image)
-            prediction = inception_model.predict(preprocessed)
-            predicted_class = class_names[np.argmax(prediction)]
-            confidence = np.max(prediction) * 100
+    # Jika sudah ada hasil prediksi dan user klik klasifikasi
+    if st.session_state.get("run_prediction") and st.session_state.get("image") is not None:
+        image = st.session_state.image
+        status = st.empty()
+        status.info("⏳ Memproses dan memprediksi gambar...")
 
-            st.session_state.predicted_class = predicted_class
-            st.session_state.confidence_table = pd.DataFrame({
-                'Tahap Instar': class_names,
-                'Akurasi (%)': prediction[0] * 100
-            })
+        class_names = ['Instar 1', 'Instar 2', 'Instar 3', 'Instar 4']
+        preprocessed = preprocess_image_inception(image)
+        prediction = inception_model.predict(preprocessed)
+        predicted_class = class_names[np.argmax(prediction)]
+        confidence = np.max(prediction) * 100
 
-            status.success("✅ Klasifikasi selesai!")
+        st.session_state.predicted_class = predicted_class
+        st.session_state.confidence_table = pd.DataFrame({
+            'Tahap Instar': class_names,
+            'Akurasi (%)': prediction[0] * 100
+        })
 
-            col1, col2 = st.columns(2)
-            with col1:
-                st.markdown(f"""
-                    <div class="card">
-                        <strong>Model:</strong> InceptionV3<br>
-                        <strong>Prediksi:</strong> {predicted_class}<br>
-                        <strong>Akurasi:</strong> {confidence:.2f}%<br>
-                    </div>
-                """, unsafe_allow_html=True)
-            with col2:
-                st.dataframe(st.session_state.confidence_table.style.format({'Akurasi (%)': '{:.2f}'}))
+        status.success("✅ Klasifikasi selesai!")
 
-            grad_status = st.empty()
-            grad_status.info("⏳ Membuat Grad-CAM visualisasi...")
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown(f"""
+                <div class="card">
+                    <strong>Model:</strong> InceptionV3<br>
+                    <strong>Prediksi:</strong> {predicted_class}<br>
+                    <strong>Akurasi:</strong> {confidence:.2f}%<br>
+                </div>
+            """, unsafe_allow_html=True)
+        with col2:
+            st.dataframe(st.session_state.confidence_table.style.format({'Akurasi (%)': '{:.2f}'}))
 
-            heatmap = make_gradcam_heatmap(preprocessed, inception_model, "mixed10")
-            gradcam_img = superimpose_heatmap(image, heatmap)
-            st.image(gradcam_img, caption="Grad-CAM InceptionV3", use_column_width=True)
+        grad_status = st.empty()
+        grad_status.info("⏳ Membuat Grad-CAM visualisasi...")
 
-            # Simpan ke DB
-            original_img_bytes = BytesIO()
-            image.save(original_img_bytes, format='PNG')
-            gradcam_img_bytes = cv2.imencode('.png', gradcam_img)[1].tobytes()
-            insert_prediction(
-                user_id=user_id,
-                original_image=original_img_bytes.getvalue(),
-                gradcam_image=gradcam_img_bytes,
-                predicted_class=predicted_class,
-                confidence_table=st.session_state.confidence_table.to_json(orient="records")
-            )
-            grad_status.success("✅ Grad-CAM berhasil dibuat dan data disimpan!")
+        heatmap = make_gradcam_heatmap(preprocessed, inception_model, "mixed10")
+        gradcam_img = superimpose_heatmap(image, heatmap)
+        st.image(gradcam_img, caption="Grad-CAM InceptionV3", use_column_width=True)
+
+        original_img_bytes = BytesIO()
+        image.save(original_img_bytes, format='PNG')
+        gradcam_img_bytes = cv2.imencode('.png', gradcam_img)[1].tobytes()
+        insert_prediction(
+            user_id=user_id,
+            original_image=original_img_bytes.getvalue(),
+            gradcam_image=gradcam_img_bytes,
+            predicted_class=predicted_class,
+            confidence_table=st.session_state.confidence_table.to_json(orient="records")
+        )
+
+        grad_status.success("✅ Grad-CAM berhasil dibuat dan data disimpan!")
+
+        # Reset flag supaya tidak rerun terus
+        st.session_state.run_prediction = False
+
