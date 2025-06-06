@@ -54,7 +54,7 @@ with margin_col2:
                 """, unsafe_allow_html=True)
 
             with hasil_col2:
-                df_conf = pd.read_json(conf_json)
+                df_conf = pd.read_json(io.StringIO(conf_json))
                 st.dataframe(df_conf.style.format({'Akurasi (%)': '{:.2f}'}))
             
             if st.button("Hapus", key=f"del_{rec_id}"):
