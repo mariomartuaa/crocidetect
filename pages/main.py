@@ -15,11 +15,7 @@ import uuid
 
 @st.cache_resource
 def load_inception_model():
-    model_path = 'InceptionV32_model.keras'
-    if not os.path.exists(model_path):
-        url = 'https://drive.google.com/uc?id=1H5QA7p4j7wNtsdnzVbtE1l3deaBh_KAi'
-        gdown.download(url, model_path, quiet=False)
-    return tf.keras.models.load_model(model_path)
+    return tf.keras.models.load_model("model/InceptionV32_model.keras")
     
 loading_model = st.empty()
 loading_model.info("⏳ Loading Model...")
