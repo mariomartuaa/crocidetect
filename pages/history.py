@@ -6,6 +6,15 @@ from PIL import Image
 import io
 from pages.db import user_id
 
+cookies = EncryptedCookieManager(
+    prefix="crocidetect_",
+    password="ini_password_super_rahasia_123!"
+)
+if not cookies.ready():
+    st.stop()
+
+user_id = cookies["user_id"]
+
 margin_col1, margin_col2, margin_col3 = st.columns([1, 3, 1])
 
 with margin_col1:
