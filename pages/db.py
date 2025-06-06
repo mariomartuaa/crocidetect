@@ -1,7 +1,7 @@
 import sqlite3
 import os
 
-DB_PATH = "data/predictions.db"
+DB_PATH = "./data/predictions.db"
 
 def init_db():
     conn = sqlite3.connect(DB_PATH)
