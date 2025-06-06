@@ -1,5 +1,6 @@
 import firebase_admin
 from firebase_admin import credentials, firestore
+import streamlit as st
 import datetime
 import base64
 import io
