@@ -193,8 +193,7 @@ else:
 
     cookies = EncryptedCookieManager(
     prefix="crocidetect_",
-    password=st.secrets["COOKIE_SECRET"],
-    key="cookies_main")
+    password=st.secrets["COOKIE_SECRET"])
 
     if not cookies.ready():
         st.stop()
