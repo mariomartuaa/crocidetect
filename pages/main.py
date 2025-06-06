@@ -47,6 +47,16 @@ if "user_id" not in st.session_state:
 else:
     user_id = st.session_state.user_id
 
+# ============ INIT SESSION STATE ============
+if "image" not in st.session_state:
+    st.session_state.image = None
+if "run_prediction" not in st.session_state:
+    st.session_state.run_prediction = False
+if "predicted_class" not in st.session_state:
+    st.session_state.predicted_class = None
+if "confidence_table" not in st.session_state:
+    st.session_state.confidence_table = None
+
 # ============ UTILS ============
 def preprocess_image_inception(image: Image.Image):
     image = image.resize((512, 512))
