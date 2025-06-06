@@ -56,9 +56,6 @@ with margin_col2:
             with hasil_col2:
                 df_conf = pd.read_json(io.StringIO(conf_json))
                 st.dataframe(df_conf.style.format({'Akurasi (%)': '{:.2f}'}))
-            
-            if st.button("Hapus", key=f"del_{rec_id}"):
-                    delete_prediction(rec_id)
 
             st.divider()
 
