@@ -5,6 +5,13 @@ import pandas as pd
 from PIL import Image
 import io
 
+cookies = EncryptedCookieManager(
+    prefix="crocidetect_",
+    password=st.secrets["COOKIE_SECRET"]
+)
+if not cookies.ready():
+    st.stop()
+
 if "user_id" not in cookies or cookies["user_id"] is None:
     st.warning("User ID tidak ditemukan. Silakan lakukan prediksi dulu di halaman utama.")
     st.stop()
