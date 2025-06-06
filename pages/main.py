@@ -202,21 +202,21 @@ with margin_col2:
         
             status_placeholder.success("✅ Klasifikasi selesai dan data disimpan!")
         
-        if "predicted_class" in st.session_state:
-            st.markdown(f"""
-                <div class="card">
-                    <strong>Model: </strong>InceptionV3<br>
-                    <strong>Prediksi: </strong>{st.session_state['predicted_class']}<br>
-                    <strong>Akurasi: </strong>{st.session_state['confidence']:.2f}%<br>
-                </div>
-            """, unsafe_allow_html=True)
-        
-            st.dataframe(
-                st.session_state['df_confidence'].style.format({'Akurasi (%)': '{:.2f}'})
-            )
-        
-            st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Grad-CAM Visualisasi</h1>', unsafe_allow_html=True)
-            st.image(st.session_state['superimposed'], caption="Grad-CAM InceptionV3", use_column_width=True)
+    if "predicted_class" in st.session_state:
+        st.markdown(f"""
+            <div class="card">
+                <strong>Model: </strong>InceptionV3<br>
+                <strong>Prediksi: </strong>{st.session_state['predicted_class']}<br>
+                <strong>Akurasi: </strong>{st.session_state['confidence']:.2f}%<br>
+            </div>
+        """, unsafe_allow_html=True)
+    
+        st.dataframe(
+            st.session_state['df_confidence'].style.format({'Akurasi (%)': '{:.2f}'})
+        )
+    
+        st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Grad-CAM Visualisasi</h1>', unsafe_allow_html=True)
+        st.image(st.session_state['superimposed'], caption="Grad-CAM InceptionV3", use_column_width=True)
 
 
 with margin_col3:
