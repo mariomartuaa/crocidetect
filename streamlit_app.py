@@ -1,4 +1,6 @@
 import streamlit as st
+from streamlit_cookies_manager import EncryptedCookieManager
+import uuid
 
 st.set_page_config(layout="wide", page_title="CrociDetect", initial_sidebar_state="auto", page_icon="🍃")
 
