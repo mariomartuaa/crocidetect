@@ -190,19 +190,6 @@ else:
 
     </style>
     """, unsafe_allow_html=True)
-
-    cookies = EncryptedCookieManager(
-    prefix="crocidetect_",
-    password=st.secrets["COOKIE_SECRET"])
-
-    if not cookies.ready():
-        st.stop()
-    
-    user_id = cookies.get("user_id")
-    if user_id is None:
-        user_id = str(uuid.uuid4())
-        cookies["user_id"] = user_id
-        cookies.save()
     
     app = st.Page(
         "pages/main.py",
