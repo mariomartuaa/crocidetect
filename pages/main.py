@@ -27,6 +27,8 @@ inception_model = load_inception_model()
 loading_model.success("✅ Berhasil Mengload Model")
 loading_model.empty()
 
+init_db()
+
 # Preprocessing function
 def preprocess_image_inception(image: Image.Image):
     image = image.resize((512, 512))
@@ -178,32 +180,23 @@ with margin_col2:
             # Tampilkan Grad-CAM
             st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Grad-CAM Visualisasi</h1>', unsafe_allow_html=True)
             st.image(superimposed_img_inception, caption="Grad-CAM InceptionV3", use_column_width=True)
-            
+    
+            original_img_bytes = BytesIO()
+            image.save(original_img_bytes, format='PNG')
+            original_img_bytes = original_img_bytes.getvalue()
+    
+            gradcam_img_bytes = cv2.imencode('.png', gradcam)[1].tobytes()
+            confidence_json = df_confidence.to_json(orient="records")
+    
+            insert_prediction(
+                user_id=user_id,
+                original_image=original_img_bytes,
+                gradcam_image=gradcam_img_bytes,
+                predicted_class=predicted_class,
+                confidence_table=confidence_json
+            )
+
             gradcam_status_placeholder.success("✅ Grad-CAM berhasil dibuat dan data disimpan!")
-            
-            if st.button("Simpan Hasil"):
-                    init_db()
-                
-                    # Ambil dari session_state
-                    image = st.session_state["original_image"]
-                    gradcam = st.session_state["gradcam_image"]
-                    predicted_class = st.session_state["predicted_class"]
-                    df_confidence = st.session_state["confidence_table"]
-            
-                    original_img_bytes = BytesIO()
-                    image.save(original_img_bytes, format='PNG')
-                    original_img_bytes = original_img_bytes.getvalue()
-            
-                    gradcam_img_bytes = cv2.imencode('.png', gradcam)[1].tobytes()
-                    confidence_json = df_confidence.to_json(orient="records")
-            
-                    insert_prediction(
-                        user_id=user_id,
-                        original_image=original_img_bytes,
-                        gradcam_image=gradcam_img_bytes,
-                        predicted_class=predicted_class,
-                        confidence_table=confidence_json
-                    )
 
 with margin_col3:
     st.write("")
