@@ -184,15 +184,15 @@ with margin_col2:
             original_img_bytes = BytesIO()
             image.save(original_img_bytes, format='PNG')
             original_img_bytes = original_img_bytes.getvalue()
-    
-            gradcam_img_bytes = cv2.imencode('.png', gradcam)[1].tobytes()
+
+            gradcam_img_bytes = cv2.imencode('.png', superimposed_img_inception)[1].tobytes()
             confidence_json = df_confidence.to_json(orient="records")
-    
+
             insert_prediction(
                 user_id=user_id,
                 original_image=original_img_bytes,
                 gradcam_image=gradcam_img_bytes,
-                predicted_class=predicted_class,
+                predicted_class=prediction_inception,
                 confidence_table=confidence_json
             )
 
