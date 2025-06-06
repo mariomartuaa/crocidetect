@@ -2,7 +2,7 @@ import sqlite3
 import os
 import streamlit as st
 
-DB_PATH = st.secrets["SQLITE"]
+DB_PATH = "data/predictions.db"
 
 def init_db():
     conn = sqlite3.connect(DB_PATH)
