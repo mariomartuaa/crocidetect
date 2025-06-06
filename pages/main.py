@@ -146,7 +146,7 @@ with margin_col2:
     if uploaded_file:
         image = Image.open(uploaded_file)
         st.image(image, use_column_width=True)
-         st.session_state.prediction_done = False
+        st.session_state.prediction_done = False
 
         # Inisialisasi session_state jika belum ada
         if "prediction_done" not in st.session_state:
