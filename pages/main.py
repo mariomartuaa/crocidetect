@@ -180,12 +180,6 @@ with margin_col2:
             st.image(superimposed_img_inception, caption="Grad-CAM InceptionV3", use_column_width=True)
             
             gradcam_status_placeholder.success("✅ Grad-CAM berhasil dibuat dan data disimpan!")
-
-            st.session_state["original_image"] = image
-            st.session_state["gradcam_image"] = superimposed_img_inception
-            st.session_state["predicted_class"] = predicted_class_inception
-            st.session_state["confidence_table"] = df_confidence
-
             
             if st.button("Simpan Hasil"):
                     init_db()
