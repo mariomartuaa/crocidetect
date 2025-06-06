@@ -7,7 +7,8 @@ import io
 
 cookies = EncryptedCookieManager(
     prefix="crocidetect_",
-    password=st.secrets["COOKIE_SECRET"])
+    password="ini_password_super_rahasia_123!"
+)
 if not cookies.ready():
     st.stop()
 
@@ -52,12 +53,12 @@ with margin_col2:
                     </div>
                 """, unsafe_allow_html=True)
 
-                if st.button("Hapus", key=f"del_{rec_id}"):
-                    delete_prediction(rec_id)
-
             with hasil_col2:
                 df_conf = pd.read_json(conf_json)
                 st.dataframe(df_conf.style.format({'Akurasi (%)': '{:.2f}'}))
+            
+            if st.button("Hapus", key=f"del_{rec_id}"):
+                    delete_prediction(rec_id)
 
             st.divider()
 
