@@ -188,6 +188,12 @@ else:
 
     </style>
     """, unsafe_allow_html=True)
+
+    user_id = cookies.get("user_id")
+    if user_id is None:
+        user_id = str(uuid.uuid4())
+        cookies["user_id"] = user_id
+        cookies.save()
     
     app = st.Page(
         "pages/main.py",
