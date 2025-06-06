@@ -1,6 +1,7 @@
 import sqlite3
 import os
 from streamlit_cookies_manager import EncryptedCookieManager
+import streamlit as st
 
 cookies = EncryptedCookieManager(
 prefix="crocidetect_",
