@@ -4,6 +4,7 @@ from pages.db import get_predictions_by_user, delete_prediction
 import pandas as pd
 from PIL import Image
 import io
+from pages.db import user_id
 
 margin_col1, margin_col2, margin_col3 = st.columns([1, 3, 1])
 
