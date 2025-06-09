@@ -6,11 +6,9 @@ import numpy as np
 import tensorflow as tf
 import matplotlib.cm as cm
 from tensorflow.keras.applications.inception_v3 import preprocess_input as inception_preprocess
-import os
-import gdown
 import cv2
 from io import BytesIO
-from pages.db import init_db, insert_prediction
+from pages.db import insert_prediction, upload_image_to_storage
 import uuid
 
 @st.cache_resource
@@ -22,8 +20,6 @@ loading_model.info("⏳ Loading Model...")
 inception_model = load_inception_model()
 loading_model.success("✅ Berhasil Mengload Model")
 loading_model.empty()
-
-init_db()
 
 cookies = EncryptedCookieManager(
 prefix="crocidetect_",
@@ -77,18 +73,54 @@ def make_gradcam_heatmap(img_array, model, last_conv_layer_name, pred_index=None
     return heatmap
 
 def superimpose_heatmap(img, heatmap, alpha=0.4):
+    # Konversi gambar PIL ke RGB NumPy array
     img = img.convert("RGB")
-    img = np.array(img)
+    img_array = np.array(img)
 
     # Resize heatmap ke ukuran gambar
-    heatmap = cv2.resize(heatmap, (img.shape[1], img.shape[0]))
-
     heatmap = np.uint8(255 * heatmap)
-    heatmap = cm.jet(heatmap)[:, :, :3] * 255
-    heatmap = np.uint8(heatmap)
+    heatmap_resized = Image.fromarray(heatmap).resize(
+        (img_array.shape[1], img_array.shape[0]), resample=Image.BILINEAR
+    )
+    heatmap_resized = np.array(heatmap_resized)
 
-    superimposed_img = cv2.addWeighted(img, 1 - alpha, heatmap, alpha, 0)
-    return superimposed_img
+    # Terapkan colormap jet (hasilnya dalam RGB)
+    heatmap_color = cm.jet(heatmap_resized / 255.0)[:, :, :3]  # ambil RGB, buang alpha
+    heatmap_color = np.uint8(heatmap_color * 255)
+
+    # Gabungkan gambar asli dan heatmap dengan alpha blending
+    superimposed_img = np.uint8(
+        (1 - alpha) * img_array + alpha * heatmap_color
+    )
+
+    # Kembalikan dalam format PIL.Image
+    return Image.fromarray(superimposed_img)
+
+def insert_database(user_id, image, superimposed_img_inception, predicted_class_inception, df_confidence):
+    # Simpan gambar ke Supabase Storage
+    unique_id = str(uuid.uuid4())
+
+    original_img_bytes = BytesIO()
+    image.save(original_img_bytes, format='PNG')
+    original_img_bytes = original_img_bytes.getvalue()
+    
+    gradcam_img_bytes = BytesIO()
+    superimposed_img_inception.save(gradcam_img_bytes, format="PNG")
+    gradcam_img_bytes =  gradcam_img_bytes.getvalue()
+
+
+    # Upload ke Supabase Storage
+    original_img_url = upload_image_to_storage(original_img_bytes, f"{unique_id}_original.png", folder=user_id)
+    gradcam_img_url = upload_image_to_storage(gradcam_img_bytes, f"{unique_id}_gradcam.png", folder=user_id)
+
+    # Simpan metadata ke database
+    insert_prediction(
+        user_id=user_id,
+        original_img_url=original_img_url,
+        gradcam_img_url=gradcam_img_url,
+        predicted_class=predicted_class_inception,
+        confidence_table=df_confidence.to_dict(orient="records")
+    )
 
 st.markdown("""
 <div class="hero-section">
@@ -183,25 +215,8 @@ with margin_col2:
 
             # Tampilkan Grad-CAM
             st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Grad-CAM Visualisasi</h1>', unsafe_allow_html=True)
+            insert_database(user_id, image, superimposed_img_inception, predicted_class_inception, df_confidence)
             st.image(superimposed_img_inception, caption="Grad-CAM InceptionV3", use_column_width=True)
-    
-            original_img_bytes = BytesIO()
-            image.save(original_img_bytes, format='PNG')
-            original_img_bytes = original_img_bytes.getvalue()
-
-            # Konversi dari BGR (OpenCV) ke RGB (PIL)
-            superimposed_img_inception = cv2.cvtColor(superimposed_img_inception, cv2.COLOR_BGR2RGB)
-            gradcam_img_bytes = cv2.imencode('.png', superimposed_img_inception)[1].tobytes()
-            confidence_json = df_confidence.to_json(orient="records")
-
-            insert_prediction(
-                user_id=user_id,
-                original_image=original_img_bytes,
-                gradcam_image=gradcam_img_bytes,
-                predicted_class=predicted_class_inception,
-                confidence_table=confidence_json
-            )
-
             gradcam_status_placeholder.success("✅ Grad-CAM berhasil dibuat dan data disimpan!")
 
 with margin_col3:
