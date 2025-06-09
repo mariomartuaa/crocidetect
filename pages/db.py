@@ -1,50 +1,69 @@
-import sqlite3
 import os
-import streamlit as st
+import json
+from supabase import create_client, Client
 
-DB_PATH = "data/predictions.db"
+SUPABASE_URL = st.secrets["SUPABASE_URL"]
+SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-def init_db():
-    conn = sqlite3.connect(DB_PATH)
-    c = conn.cursor()
-    c.execute("""
-    CREATE TABLE IF NOT EXISTS predictions (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        user_id TEXT,
-        timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-        original_image BLOB,
-        gradcam_image BLOB,
-        predicted_class TEXT,
-        confidence_table TEXT
-    )
-    """)
-    conn.commit()
-    conn.close()
+STORAGE_BUCKET = "crocidetect"
 
-def insert_prediction(user_id, original_image, gradcam_image, predicted_class, confidence_table):
-    conn = sqlite3.connect(DB_PATH)
-    c = conn.cursor()
-    c.execute("""
-        INSERT INTO predictions (user_id, original_image, gradcam_image, predicted_class, confidence_table)
-        VALUES (?, ?, ?, ?, ?)
-    """, (user_id, original_image, gradcam_image, predicted_class, confidence_table))
-    conn.commit()
-    conn.close()
+def upload_image_to_storage(file_bytes, filename, folder):
+    path = f"{folder}/{filename}"
+
+    try:
+        supabase.storage.from_(STORAGE_BUCKET).remove([path])
+    except Exception:
+        pass
+        
+    supabase.storage.from_(STORAGE_BUCKET).upload(path, file_bytes, {"content-type": "image/png"})
+
+    public_url = f"{SUPABASE_URL}/storage/v1/object/public/{STORAGE_BUCKET}/{path}"
+    return public_url
+
+
+def insert_prediction(user_id, original_img_url, gradcam_img_url, predicted_class, confidence_table):
+    data = {
+        "user_id": user_id,
+        "original_image": original_img_url,
+        "gradcam_image": gradcam_img_url,
+        "predicted_class": predicted_class,
+        "confidence_table": json.dumps(confidence_table)
+    }
+    supabase.table("predictions").insert(data).execute()
 
 def get_predictions_by_user(user_id):
-    conn = sqlite3.connect(DB_PATH)
-    c = conn.cursor()
-    c.execute("""
-        SELECT id, timestamp, original_image, gradcam_image, predicted_class, confidence_table
-        FROM predictions WHERE user_id = ? ORDER BY timestamp DESC
-    """, (user_id,))
-    rows = c.fetchall()
-    conn.close()
-    return rows
+    response = supabase.table("predictions") \
+        .select("*") \
+        .eq("user_id", user_id) \
+        .order("timestamp", desc=True) \
+        .execute()
+    return response.data
 
 def delete_prediction(prediction_id):
-    conn = sqlite3.connect(DB_PATH)
-    c = conn.cursor()
-    c.execute("DELETE FROM predictions WHERE id = ?", (prediction_id,))
-    conn.commit()
-    conn.close()
+    response = supabase.table("predictions") \
+        .select("original_image, gradcam_image") \
+        .eq("id", prediction_id) \
+        .single() \
+        .execute()
+    
+    if response.data:
+        def extract_path_from_url(url):
+            return "/".join(url.split("/")[-2:])
+        
+        original_url = response.data["original_image"]
+        gradcam_url = response.data["gradcam_image"]
+
+        try:
+            path1 = extract_path_from_url(original_url)
+            path2 = extract_path_from_url(gradcam_url)
+            supabase.storage.from_(STORAGE_BUCKET).remove([path1])
+            supabase.storage.from_(STORAGE_BUCKET).remove([path2])
+            
+            print(original_url)
+            print(path1)
+            
+        except Exception as e:
+            print("Gagal menghapus gambar dari storage:", e)
+
+    supabase.table("predictions").delete().eq("id", prediction_id).execute()
