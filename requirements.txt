@@ -4,8 +4,8 @@ pandas
 numpy
 tensorflow
 matplotlib
-
 gdown
 opencv-python-headless
 streamlit-cookies-manager
 firebase-admin
+supabase
