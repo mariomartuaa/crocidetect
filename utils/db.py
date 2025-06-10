@@ -7,8 +7,8 @@ SUPABASE_URL = st.secrets["SUPABASE_URL"]
 SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-STORAGE_BUCKET = "crocidetect"
-DATABASE_TABLE = "predictions"
+STORAGE_BUCKET = st.secrets["SUPABASE_STORAGE"]
+DATABASE_TABLE = st.secrets["SUPABASE_DATABASE"]
 
 def upload_image_to_storage(file_bytes, filename, folder):
     path = f"{folder}/{filename}"
