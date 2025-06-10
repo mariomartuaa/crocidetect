@@ -1,10 +1,10 @@
-import os
 import json
 from supabase import create_client, Client
+import streamlit as st
 
 # Supabase Credentials
-SUPABASE_URL = "https://xxzegimecgqwmcuchvaz.supabase.co"
-SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh4emVnaW1lY2dxd21jdWNodmF6Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0OTM4ODAwNSwiZXhwIjoyMDY0OTY0MDA1fQ.6E7rGQ7fi7zNJJcf1dBKSbjq0SBpmjFPHfZPgb_GEi8"
+SUPABASE_URL = st.secrets["SUPABASE_URL"]
+SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 STORAGE_BUCKET = "crocidetect"
