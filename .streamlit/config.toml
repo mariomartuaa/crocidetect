@@ -5,3 +5,6 @@ showSidebarNavigation = false
 backgroundColor="#a9d7a9"
 textColor="#2e5339"
 secondaryBackgroundColor="#77DDAA"
+
+[server]
+maxUploadSize = 20
