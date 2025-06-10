@@ -1,15 +1,11 @@
 import streamlit as st
-from streamlit_cookies_manager import EncryptedCookieManager
-from pages.db import get_predictions_by_user, delete_prediction
+from utils.db import get_predictions_by_user, delete_prediction
 import pandas as pd
 import json
 from datetime import datetime
+from utils.utils import get_user_id
 
-cookies = EncryptedCookieManager(prefix="crocidetect_", password=st.secrets["COOKIE_SECRET"])
-if not cookies.ready():
-    st.stop()
-
-user_id = cookies["user_id"]
+user_id = get_user_id()
 
 margin_col1, margin_col2, margin_col3 = st.columns([1, 3, 1])
 with margin_col1:
@@ -33,7 +29,6 @@ with margin_col2:
 
 
             dt = datetime.fromisoformat(timestamp)
-            # Format ulang ke string tanpa 'T'
             formatted = dt.strftime("%d-%m-%Y Pukul %H:%M:%S")
             st.write(f"### Prediksi pada: {formatted}")
 
