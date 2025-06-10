@@ -53,7 +53,10 @@ with margin_col2:
 
             if st.button("Hapus", key=f"del_{rec_id}"):
                 delete_prediction(rec_id)
+                delete_placeholder = st.empty()
+                delete_placeholder.info("⏳ Menghapus data...")
                 st.rerun()
+                delete_placeholder.success("✅ Data berhasil dihapus")
 
             st.divider()
 
