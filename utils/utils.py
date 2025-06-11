@@ -15,7 +15,7 @@ class_names = ['Instar 1', 'Instar 2', 'Instar 3', 'Instar 4']
 def get_user_id():
     cookies = EncryptedCookieManager(prefix="crocidetect_", password=st.secrets["COOKIE_SECRET"])
     if not cookies.ready():
-        st.stop()
+        return None
 
     user_id = cookies.get("user_id")
     
