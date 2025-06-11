@@ -90,7 +90,11 @@ with margin_col2:
             grad_cam = make_gradcam_heatmap(image, inception_model, "mixed10")
 
             # Tampilkan Grad-CAM
-            insert_database(user_id, image, grad_cam, predicted_class_inception, df_confidence)
+            if user_id is None:
+                st.warning("Prediksi tidak disimpan karena cookie user tidak tersedia.")
+            else: 
+                insert_database(user_id, image, grad_cam, predicted_class_inception, df_confidence)
+
             st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Grad-CAM Visualisasi</h1>', unsafe_allow_html=True)
             st.image(grad_cam, caption="Grad-CAM InceptionV3", use_column_width=True)
             gradcam_status_placeholder.success("✅ Grad-CAM berhasil dibuat dan data disimpan!")
