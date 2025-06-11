@@ -92,12 +92,14 @@ with margin_col2:
             # Tampilkan Grad-CAM
             if user_id is None:
                 st.warning("Prediksi tidak disimpan karena cookie user tidak tersedia.")
+                st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Grad-CAM Visualisasi</h1>', unsafe_allow_html=True)
+                st.image(grad_cam, caption="Grad-CAM InceptionV3", use_column_width=True)
+                gradcam_status_placeholder.success("✅ Grad-CAM berhasil dibuat!")
             else: 
                 insert_database(user_id, image, grad_cam, predicted_class_inception, df_confidence)
-
-            st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Grad-CAM Visualisasi</h1>', unsafe_allow_html=True)
-            st.image(grad_cam, caption="Grad-CAM InceptionV3", use_column_width=True)
-            gradcam_status_placeholder.success("✅ Grad-CAM berhasil dibuat dan data disimpan!")
+                st.markdown(f'<h1 style="text-align: center; font-size: 30px; color: #2e5339;">Grad-CAM Visualisasi</h1>', unsafe_allow_html=True)
+                st.image(grad_cam, caption="Grad-CAM InceptionV3", use_column_width=True)
+                gradcam_status_placeholder.success("✅ Grad-CAM berhasil dibuat dan data disimpan!")
 
 with margin_col3:
     st.write("")
