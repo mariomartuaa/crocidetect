@@ -19,9 +19,6 @@ def get_user_id():
 
     user_id = cookies.get("user_id")
     
-    if user_id is None:
-        user_id = cookies.get("ajs_anonymous_id")
-    
     return user_id
 
 @st.cache_resource
