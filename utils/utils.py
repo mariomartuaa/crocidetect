@@ -23,7 +23,7 @@ def get_user_id():
 
 @st.cache_resource
 def load_inception_model():
-    return tf.keras.models.load_model("model/InceptionV32_model.keras")
+    return tf.keras.models.load_model("model/InceptionV33_model.keras")
 
 def preprocess_image_inception(image):
     image = image.resize((512, 512))
