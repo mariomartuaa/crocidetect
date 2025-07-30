@@ -53,22 +53,22 @@ def make_gradcam_heatmap(image, model, last_conv_layer_name):
         [model.get_layer(last_conv_layer_name).output, model.output]
     )
 
-
     with tf.GradientTape() as tape:
         conv_outputs, predictions = grad_model(img_array)
+        
+        # FIX untuk error list indices must be integers or slices, not tuple
+        if isinstance(predictions, (list, tuple)):
+            predictions = predictions[0]
+
         pred_index = tf.argmax(predictions[0])
         class_channel = predictions[:, pred_index]
 
-    # Gradients terhadap output feature map
     grads = tape.gradient(class_channel, conv_outputs)
 
     pooled_grads = tf.reduce_mean(grads, axis=(0, 1, 2))
-
     conv_outputs = conv_outputs[0]
 
     heatmap = tf.reduce_sum(conv_outputs * pooled_grads, axis=-1)
-
-    # Normalisasi heatmap
     heatmap = tf.maximum(heatmap, 0) / tf.reduce_max(heatmap)
     heatmap = heatmap.numpy()
     
