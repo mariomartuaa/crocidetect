@@ -16,9 +16,12 @@ def get_user_id():
     cookies = EncryptedCookieManager(prefix="crocidetect_", password=st.secrets["COOKIE_SECRET"])
     if not cookies.ready():
         return None
-
-    user_id = cookies.get("user_id")
     
+    user_id = cookies.get("user_id")
+    if user_id is None:
+        user_id = str(uuid.uuid4())  # bikin ID unik
+        cookies["user_id"] = user_id
+        cookies.save()  # simpan cookie ke browser
     return user_id
 
 @st.cache_resource
@@ -118,3 +121,4 @@ def insert_database(user_id, image, superimposed_img_inception, predicted_class_
         gradcam_img_url=gradcam_img_url,
         predicted_class=predicted_class_inception,
         confidence_table=df_confidence.to_dict(orient="records"))
+
